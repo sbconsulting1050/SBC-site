@@ -17,8 +17,6 @@
 }
 html{scroll-behavior:smooth;font-size:15px}
 body{background:var(--bg);color:var(--ink);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh;overflow-x:hidden;line-height:1.6}
-
-/* ===== HERO ===== */
 #heroScreen{min-height:100vh;background:#0a0d14;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding:6rem 2rem 5rem}
 #heroScreen::before{content:'';position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(61,127,255,.22) 0%,transparent 70%);top:-180px;left:-200px;pointer-events:none}
 #heroScreen::after{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(34,192,112,.14) 0%,transparent 70%);bottom:-100px;right:-120px;pointer-events:none}
@@ -52,8 +50,6 @@ body{background:var(--bg);color:var(--ink);font-family:'Segoe UI',system-ui,sans
 .hr-saving{display:inline-flex;align-items:center;gap:.3rem;background:rgba(34,192,112,.12);border:1px solid rgba(34,192,112,.25);color:#22c070;font-size:.64rem;font-weight:800;padding:.16rem .6rem;border-radius:50px}
 .hero-trust-bar{position:absolute;bottom:0;left:0;right:0;border-top:1px solid rgba(255,255,255,.06);padding:.75rem 2rem;display:flex;align-items:center;justify-content:center;gap:1.8rem;flex-wrap:wrap;z-index:2}
 .htb-item{display:flex;align-items:center;gap:.4rem;font-size:.69rem;font-weight:600;color:rgba(255,255,255,.32)}
-
-/* ===== PROFILE ===== */
 #profileScreen{display:none;min-height:100vh;background:var(--bg);align-items:center;justify-content:center;padding:4rem 2rem}
 #profileScreen.show{display:flex}
 .profile-wrap{max-width:460px;width:100%;text-align:center}
@@ -66,8 +62,6 @@ body{background:var(--bg);color:var(--ink);font-family:'Segoe UI',system-ui,sans
 .pm-btn-icon{font-size:1.6rem;flex-shrink:0}
 .pm-btn-label{font-weight:700;font-size:.9rem;color:var(--ink);margin-bottom:.1rem}
 .pm-btn-desc{font-size:.73rem;color:var(--muted)}
-
-/* ===== APP ===== */
 #appScreen{display:none}
 nav{position:sticky;top:0;z-index:100;background:var(--bg2);border-bottom:1.5px solid var(--border);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(12px)}
 .logo{font-size:1.1rem;font-weight:800;color:var(--ink);display:flex;align-items:center;gap:.45rem}
@@ -256,6 +250,8 @@ nav{position:sticky;top:0;z-index:100;background:var(--bg2);border-bottom:1.5px 
 .ok-icon{font-size:2.6rem;margin-bottom:.6rem}
 .ok-title{font-size:1.5rem;font-weight:800;color:var(--green);margin-bottom:.35rem}
 .ok-sub{color:var(--muted);font-size:.83rem;line-height:1.7}
+.err-box{display:none;background:rgba(255,60,60,.08);border:1.5px solid rgba(255,60,60,.3);border-radius:var(--r);padding:1rem 1.2rem;margin-top:.8rem;font-size:.82rem;color:#ff6b6b;line-height:1.6}
+.err-box.show{display:block}
 .step-section{display:none}
 .step-section.visible{display:block}
 .back-btn{background:var(--surface2);border:1.5px solid var(--border2);color:var(--ink2);padding:.55rem 1.2rem;border-radius:50px;font-family:inherit;font-size:.8rem;font-weight:700;cursor:pointer;transition:all .18s}
@@ -432,18 +428,21 @@ footer strong{color:var(--ink2);font-weight:800}
 
     <div class="card step-section" id="step5">
       <div class="card-head"><div class="card-num">5</div><div><div class="card-title" id="s5title"></div><div class="card-sub" id="s5sub"></div></div></div>
-      <div class="form-grid">
-        <div class="field"><label id="lPrenom"></label><input type="text" id="f_prenom"></div>
-        <div class="field"><label id="lNom"></label><input type="text" id="f_nom"></div>
-        <div class="field full"><label id="lAdresse"></label><input type="text" id="f_adresse"></div>
-        <div class="field"><label id="lCP"></label><input type="text" id="f_cp" placeholder="1000"></div>
-        <div class="field"><label id="lVille"></label><input type="text" id="f_ville"></div>
-        <div class="field"><label id="lTel"></label><input type="tel" id="f_tel" placeholder="+32 4xx xx xx xx"></div>
-        <div class="field"><label id="lEmail"></label><input type="email" id="f_email" placeholder="jean@email.com"></div>
-        <div class="field hidden" id="f_tvaField"><label id="lTVA"></label><input type="text" id="f_tva" placeholder="BE 0xxx.xxx.xxx"></div>
-        <div class="field full"><label id="lMsg"></label><textarea id="f_msg"></textarea></div>
-      </div>
-      <button class="send-btn" id="sendBtn"></button>
+
+      <form class="form-grid" action="https://formspree.io/f/xvzywbbb" method="POST">
+        <div class="field"><label id="lPrenom"></label><input type="text" name="Prénom" id="f_prenom" required></div>
+        <div class="field"><label id="lNom"></label><input type="text" name="Nom" id="f_nom" required></div>
+        <div class="field full"><label id="lAdresse"></label><input type="text" name="Adresse" id="f_adresse" required></div>
+        <div class="field"><label id="lCP"></label><input type="text" name="Code postal" id="f_cp" placeholder="1000" required></div>
+        <div class="field"><label id="lVille"></label><input type="text" name="Ville" id="f_ville" required></div>
+        <div class="field"><label id="lTel"></label><input type="tel" name="Téléphone" id="f_tel" placeholder="+32 4xx xx xx xx" required></div>
+        <div class="field"><label id="lEmail"></label><input type="email" name="email" id="f_email" placeholder="jean@email.com" required></div>
+        <div class="field hidden" id="f_tvaField"><label id="lTVA"></label><input type="text" name="Numéro TVA" id="f_tva" placeholder="BE 0xxx.xxx.xxx"></div>
+        <div class="field full"><label id="lMsg"></label><textarea name="Message" id="f_msg"></textarea></div>
+        <div class="field full" style="grid-column:1/-1">
+          <button type="submit" class="send-btn" id="sendBtn"></button>
+        </div>
+      </form>
       <div class="ok-box" id="okBox"><div class="ok-icon">✅</div><div class="ok-title" id="okTitle"></div><div class="ok-sub" id="okSub"></div></div>
     </div>
   </div>
@@ -452,11 +451,14 @@ footer strong{color:var(--ink2);font-weight:800}
 
 <script>
 (function(){
+
+
+
 const T={
-fr:{kicker:"Courtier en charges domestiques · Belgique",h1a:"Comparez.",h1b:"Économisez.",heroSub:"Un consultant personnel. Une analyse sur-mesure. Des économies réelles dès le premier mois.",heroBtn:"Commencer gratuitement →",heroBtnNote:"100% gratuit · Sans engagement",stat1num:"+230",stat1lbl:"Clients satisfaits",stat2num:"−47€",stat2lbl:"Économies/mois",stat3num:"24h",stat3lbl:"Délai de réponse",reviewsLabel:"Ce que disent nos clients",r1text:'"Je payais 134€ par mois. Maintenant c\'est 81€ pour exactement les mêmes services."',r1name:"— Nathalie D., Bruxelles",r1saving:"−53€/mois",r2text:'"Mon consultant a tout géré, du premier appel jusqu\'à l\'activation."',r2name:"— Yves M., Liège",r2saving:"−41€/mois",r3text:'"Sceptique au départ, mais les résultats sont là. En plus c\'est vraiment gratuit."',r3name:"— Isabelle V., Gand",r3saving:"−58€/mois",htb4:"Sans engagement",pmTitle:"Quel est votre profil ?",pmSub:"Choisissez votre profil pour recevoir les offres et conditions adaptées.",pmPart:"Particulier",pmPartDesc:"Offres résidentielles · Prix TVAC",pmPro:"Professionnel",pmProDesc:"Offres business · TVA récupérable · Facturation",navFree:"100% gratuit",tb1:"clients satisfaits",tb2:"d'économies moyennes",tb3a:"Réponse sous",tb3b:"24h",tb4:"Sans engagement · Confidentiel",tvaText:"TVA récupérable",pbChange:"Changer de profil",steps:["Situation","Internet","Mobiles","Promo","Contact"],s1title:"Votre situation actuelle",s1sub:"Dites-nous ce que vous avez aujourd'hui",s1opLabel:"Opérateur Internet / TV / Fixe actuel",s1mobOpLabel:"Opérateur mobile actuel",specify:"Précisez :",autreOpPh:"Nom de votre opérateur actuel…",autreMobPh:"Nom de votre opérateur mobile…",s1servLabel:"Services dans votre abonnement actuel",chipTV:"📺 Télévision",chipFixe:"☎️ Ligne fixe",chipMobile:"📱 Mobile(s)",s1engLabel:"Téléphone en remboursement mensuel ?",engNo:"✅ Non, je suis libre",engYes:"📲 Oui, je rembourse mon téléphone",engNoticeTitle:"Aucun problème.",engNoticeText:"Nos tarifs réduits s'appliquent immédiatement sur tous vos autres services.",s1budgetLabel:"Ce que vous payez actuellement",budgetHint:"Montant total de votre facture mensuelle actuelle, tous services confondus.",btnContinue:"Continuer →",btnBack:"← Retour",btnValidate:"Valider & continuer →",s2title:"Votre offre internet & options",s2sub:"Choisissez votre connexion, puis ajoutez vos options",s2netLabel:"Connexion internet",ncWarn:"Si fibre indisponible",fiberLabel:"Fibre optique",s2optLabel:"Options",tvDesc:"+80 chaînes · 1ère TV-Box offerte · Replay",wifiDesc:"Couverture WiFi optimale dans toute la maison",free1yr:"Gratuit 1 an",fixeLabel:"Ligne fixe",fixeDesc:"Appels nationaux illimités · sans frais cachés",s3title:"Vos mobiles",s3sub:"Décrivez vos lignes actuelles, puis choisissez vos nouvelles offres",curMobTitle:"Vos mobiles actuels",today:"Aujourd'hui",curMobSub:"Pour chaque mobile : opérateur, type de contrat, volume de données et prix mensuel.",curMobLbl:"ligne(s) actuellement (max 6)",newMobTitle:"Mobiles souhaités avec nous",newOffer:"Nouvelle offre",simLbl:"ligne(s) SIM souhaitée(s) (max 6)",portTitle:"Conservation ou changement de numéro.",portText:"Votre consultant gère l'ensemble des démarches de portabilité.",deviceTitle:"Acquisition d'un nouveau terminal.",deviceText:"Achat comptant ou en mensualités, votre consultant vous guide.",s4title:"Votre promotion & récapitulatif",s4sub:"Choisissez votre durée — votre total se met à jour en temps réel",s4promoLabel:"Durée promotionnelle",suiviTitle:"Un consultant personnel vous est attribué",suiviDesc:"Dès validation, <strong>un consultant dédié prend en charge votre dossier personnellement</strong>. Il vous communique son numéro direct et vous accompagne de A à Z. <strong>Réponse garantie sous 24h.</strong>",spDirect:"📞 Numéro direct",spPrivate:"🔒 Suivi privé",sp24h:"⚡ Sous 24h",spFree:"🎁 100% gratuit",s4recapLabel:"Récapitulatif de votre offre",recapEmpty:"Sélectionnez une promotion ci-dessus",promoNoticeText:"ℹ️ <strong>Promo 6 mois :</strong> la réduction de −10€/mois s'active si vous combinez internet avec au moins un service supplémentaire.",s5title:"Vos coordonnées",s5sub:"Votre consultant vous contacte avec son numéro direct sous 24h",fPrenom:"Prénom *",fNom:"Nom *",fAdresse:"Adresse *",fCP:"Code postal *",fVille:"Ville *",fTel:"Téléphone *",fEmail:"Email *",fTVA:"Numéro TVA",fMsg:"Message (optionnel)",phPrenom:"Jean",phNom:"Dupont",phAdresse:"Rue de la Loi 16",phVille:"Bruxelles",phMsg:"Modèle de téléphone souhaité, questions…",sendBtn:"Recevoir mon offre personnalisée — Gratuit & sans engagement →",okTitle:"Demande envoyée !",okSub:"Votre consultant personnel vous contacte sous 24h avec son numéro direct.",footerSub:"Courtier en charges domestiques · Belgique",footerNote:"Service 100% gratuit pour le client · Prix TVAC",searchOp:"Cherchez votre opérateur…",searchMob:"Cherchez votre opérateur mobile…",postpaid:"Abonnement mensuel",prepaid:"Prépayé",credit:"Tél. en remboursement",dataVol:"Volume données",calls:"Appels & SMS",monthlyPrice:"Prix mensuel actuel",notSpec:"Non précisé",lessThan5:"Moins de 5 GB",from5to10:"5 à 10 GB",from10to20:"10 à 20 GB",from20to50:"20 à 50 GB",from50to100:"50 à 100 GB",unlimited:"Illimité",limitedCalls:"Limités",unlimitedCalls:"Illimités",packTab:"📦 Dans le Pack",aloneTab:"📋 Hors Pack",aloneNote:"Tarif autonome — sans réduction Pack",discLabel:"Pack",contractType:"Type de contrat",curCardTitle:"📱 Ligne actuelle",opLabel:"Opérateur actuel",searchMobPh:"Cherchez…",free1yrShort:"Gratuit 1 an",mobPackSubHtml:'<strong style="color:var(--blue2)">Dans le Pack</strong> — 1er mobile <strong style="color:var(--green)">−10€/mois</strong>, à partir du 2ème <strong style="color:var(--green)">−5€/mois</strong>.'},
-nl:{kicker:"Telecommakelaar · België",h1a:"Vergelijk.",h1b:"Bespaar.",heroSub:"Een persoonlijke consultant. Een analyse op maat. Echte besparingen vanaf de eerste maand.",heroBtn:"Gratis starten →",heroBtnNote:"100% gratis · Zonder verbintenis",stat1num:"+230",stat1lbl:"Tevreden klanten",stat2num:"−47€",stat2lbl:"Besparing/maand",stat3num:"24u",stat3lbl:"Reactietijd",reviewsLabel:"Wat onze klanten zeggen",r1text:'"Ik betaalde 134€ per maand. Nu is het 81€ voor exact dezelfde diensten."',r1name:"— Nathalie D., Brussel",r1saving:"−53€/maand",r2text:'"Mijn consultant heeft alles geregeld, van het eerste gesprek tot de activering."',r2name:"— Yves M., Luik",r2saving:"−41€/maand",r3text:'"Aanvankelijk sceptisch, maar de resultaten spreken voor zich."',r3name:"— Isabelle V., Gent",r3saving:"−58€/maand",htb4:"Zonder verbintenis",pmTitle:"Wat is uw profiel?",pmSub:"Kies uw profiel voor aangepaste aanbiedingen.",pmPart:"Particulier",pmPartDesc:"Residentiële aanbiedingen · Prijs incl. btw",pmPro:"Professioneel",pmProDesc:"Zakelijke aanbiedingen · Btw terugvorderbaar",navFree:"100% gratis",tb1:"tevreden klanten",tb2:"gemiddelde besparing",tb3a:"Antwoord binnen",tb3b:"24u",tb4:"Zonder verbintenis · Vertrouwelijk",tvaText:"Btw terugvorderbaar",pbChange:"Profiel wijzigen",steps:["Situatie","Internet","Mobiel","Promo","Contact"],s1title:"Uw huidige situatie",s1sub:"Vertel ons wat u vandaag heeft",s1opLabel:"Huidige internet / tv / vaste lijn operator",s1mobOpLabel:"Huidige mobiele operator",specify:"Preciseer:",autreOpPh:"Naam van uw huidige operator…",autreMobPh:"Naam van uw mobiele operator…",s1servLabel:"Diensten in uw huidige abonnement",chipTV:"📺 Televisie",chipFixe:"☎️ Vaste lijn",chipMobile:"📱 Mobiel(e)",s1engLabel:"Telefoon op maandelijkse afbetaling?",engNo:"✅ Nee, ik ben vrij",engYes:"📲 Ja, ik betaal mijn toestel af",engNoticeTitle:"Geen probleem.",engNoticeText:"Onze verlaagde tarieven gelden onmiddellijk voor al uw andere diensten.",s1budgetLabel:"Wat u momenteel betaalt",budgetHint:"Totaalbedrag van uw huidige maandfactuur, alle diensten samen.",btnContinue:"Verder →",btnBack:"← Terug",btnValidate:"Bevestigen & verder →",s2title:"Uw internet & opties",s2sub:"Kies uw verbinding en voeg opties toe",s2netLabel:"Internetverbinding",ncWarn:"Als glasvezel niet beschikbaar",fiberLabel:"Glasvezel",s2optLabel:"Opties",tvDesc:"+80 zenders · 1e TV-Box gratis · Replay",wifiDesc:"Optimale wifi-dekking door het hele huis",free1yr:"1 jaar gratis",fixeLabel:"Vaste lijn",fixeDesc:"Onbeperkt nationale oproepen",s3title:"Uw mobiele lijnen",s3sub:"Beschrijf uw huidige lijnen en kies uw nieuwe aanbiedingen",curMobTitle:"Uw huidige mobiele lijnen",today:"Vandaag",curMobSub:"Per mobiel: operator, contracttype, datavolume en maandprijs.",curMobLbl:"huidige lijn(en) (max 6)",newMobTitle:"Gewenste mobiele lijnen bij ons",newOffer:"Nieuw aanbod",simLbl:"gewenste SIM-lijn(en) (max 6)",portTitle:"Nummeroverdracht of nieuw nummer.",portText:"Uw consultant regelt alle portabiliteitsstappen.",deviceTitle:"Aankoop van een nieuw toestel.",deviceText:"Contante aankoop of op afbetaling, uw consultant begeleidt u.",s4title:"Uw promotie & samenvatting",s4sub:"Kies uw duur — uw totaal wordt real-time bijgewerkt",s4promoLabel:"Promotieduur",suiviTitle:"Er wordt een persoonlijke consultant aan u toegewezen",suiviDesc:"Na bevestiging <strong>neemt een toegewijde consultant uw dossier persoonlijk op</strong>. Hij geeft u zijn direct nummer. <strong>Gegarandeerd antwoord binnen 24u.</strong>",spDirect:"📞 Direct nummer",spPrivate:"🔒 Privébegeleiding",sp24h:"⚡ Binnen 24u",spFree:"🎁 100% gratis",s4recapLabel:"Samenvatting van uw aanbieding",recapEmpty:"Selecteer een promotie hierboven",promoNoticeText:"ℹ️ <strong>Promo 6 maanden:</strong> de −10€/mnd korting geldt alleen als u internet combineert met minstens één extra dienst.",s5title:"Uw contactgegevens",s5sub:"Uw consultant neemt contact op binnen 24u",fPrenom:"Voornaam *",fNom:"Achternaam *",fAdresse:"Adres *",fCP:"Postcode *",fVille:"Stad *",fTel:"Telefoon *",fEmail:"E-mail *",fTVA:"BTW-nummer",fMsg:"Bericht (optioneel)",phPrenom:"Jan",phNom:"Janssen",phAdresse:"Wetstraat 16",phVille:"Brussel",phMsg:"Gewenst toestelmodel, vragen…",sendBtn:"Mijn gepersonaliseerd aanbod ontvangen — Gratis & zonder verbintenis →",okTitle:"Aanvraag verzonden!",okSub:"Uw persoonlijke consultant neemt binnen 24u contact op.",footerSub:"Makelaar in huishoudelijke lasten · België",footerNote:"100% gratis service voor de klant · Prijzen incl. btw",searchOp:"Zoek uw operator…",searchMob:"Zoek uw mobiele operator…",postpaid:"Maandabonnement",prepaid:"Prepaid",credit:"Toestel op afbetaling",dataVol:"Datavolume",calls:"Bellen & sms",monthlyPrice:"Huidige maandprijs",notSpec:"Niet opgegeven",lessThan5:"Minder dan 5 GB",from5to10:"5 tot 10 GB",from10to20:"10 tot 20 GB",from20to50:"20 tot 50 GB",from50to100:"50 tot 100 GB",unlimited:"Onbeperkt",limitedCalls:"Beperkt",unlimitedCalls:"Onbeperkt",packTab:"📦 In het Pack",aloneTab:"📋 Buiten Pack",aloneNote:"Zelfstandig tarief — zonder Pack-korting",discLabel:"Pack",contractType:"Contracttype",curCardTitle:"📱 Huidige lijn",opLabel:"Huidige operator",searchMobPh:"Zoeken…",free1yrShort:"1 jaar gratis",mobPackSubHtml:'<strong style="color:var(--blue2)">In het Pack</strong> — 1e mobiel <strong style="color:var(--green)">−10€/mnd</strong>, vanaf het 2e <strong style="color:var(--green)">−5€/mnd</strong>.'},
-en:{kicker:"Telecom Broker · Belgium",h1a:"Compare.",h1b:"Save.",heroSub:"A personal consultant. A tailored analysis. Real savings from the very first month.",heroBtn:"Start for free →",heroBtnNote:"100% free · No commitment",stat1num:"+230",stat1lbl:"Satisfied clients",stat2num:"−€47",stat2lbl:"Savings/month",stat3num:"24h",stat3lbl:"Response time",reviewsLabel:"What our clients say",r1text:'"I was paying €134 a month. Now it\'s €81 for exactly the same services."',r1name:"— Nathalie D., Brussels",r1saving:"−€53/month",r2text:'"My consultant handled everything, from the first call to activation."',r2name:"— Yves M., Liège",r2saving:"−€41/month",r3text:'"Sceptical at first, but the results speak for themselves."',r3name:"— Isabelle V., Ghent",r3saving:"−€58/month",htb4:"No commitment",pmTitle:"What is your profile?",pmSub:"Choose your profile to receive tailored offers.",pmPart:"Individual",pmPartDesc:"Residential offers · Prices incl. VAT",pmPro:"Professional",pmProDesc:"Business offers · VAT reclaimable",navFree:"100% free",tb1:"satisfied clients",tb2:"average savings",tb3a:"Reply within",tb3b:"24h",tb4:"No commitment · Confidential",tvaText:"VAT reclaimable",pbChange:"Change profile",steps:["Situation","Internet","Mobile","Promo","Contact"],s1title:"Your current situation",s1sub:"Tell us what you have today",s1opLabel:"Current Internet / TV / Landline operator",s1mobOpLabel:"Current mobile operator",specify:"Specify:",autreOpPh:"Name of your current operator…",autreMobPh:"Name of your mobile operator…",s1servLabel:"Services in your current subscription",chipTV:"📺 Television",chipFixe:"☎️ Landline",chipMobile:"📱 Mobile(s)",s1engLabel:"Phone on monthly instalments?",engNo:"✅ No, I'm free",engYes:"📲 Yes, I'm paying off my device",engNoticeTitle:"No problem.",engNoticeText:"Our reduced rates apply immediately to all your other services.",s1budgetLabel:"What you currently pay",budgetHint:"Total amount of your current monthly bill, all services combined.",btnContinue:"Continue →",btnBack:"← Back",btnValidate:"Confirm & continue →",s2title:"Your internet offer & options",s2sub:"Choose your connection, then add your options",s2netLabel:"Internet connection",ncWarn:"If fibre unavailable",fiberLabel:"Fibre optic",s2optLabel:"Options",tvDesc:"+80 channels · 1st TV-Box free · Replay",wifiDesc:"Optimal WiFi coverage throughout your home",free1yr:"Free 1 year",fixeLabel:"Landline",fixeDesc:"Unlimited national calls · No hidden fees",s3title:"Your mobile lines",s3sub:"Describe your current lines, then choose your new offers",curMobTitle:"Your current mobile lines",today:"Today",curMobSub:"For each mobile: operator, contract type, data volume and monthly price.",curMobLbl:"current line(s) (max 6)",newMobTitle:"Desired mobile lines with us",newOffer:"New offer",simLbl:"desired SIM line(s) (max 6)",portTitle:"Keep or change your number.",portText:"Your consultant handles all portability steps.",deviceTitle:"Acquiring a new device.",deviceText:"Cash purchase or instalments, your consultant guides you.",s4title:"Your promotion & summary",s4sub:"Choose your duration — your total updates in real time",s4promoLabel:"Promotional duration",suiviTitle:"A personal consultant is assigned to you",suiviDesc:"Upon confirmation, <strong>a dedicated consultant personally takes charge of your file</strong>. They give you their direct number. <strong>Reply guaranteed within 24h.</strong>",spDirect:"📞 Direct number",spPrivate:"🔒 Private follow-up",sp24h:"⚡ Within 24h",spFree:"🎁 100% free",s4recapLabel:"Summary of your offer",recapEmpty:"Select a promotion above",promoNoticeText:"ℹ️ <strong>6-month promo:</strong> the −€10/mo discount only activates when you combine internet with at least one additional service.",s5title:"Your contact details",s5sub:"Your consultant will contact you within 24h",fPrenom:"First name *",fNom:"Last name *",fAdresse:"Address *",fCP:"Postcode *",fVille:"City *",fTel:"Phone *",fEmail:"Email *",fTVA:"VAT number",fMsg:"Message (optional)",phPrenom:"John",phNom:"Smith",phAdresse:"16 Law Street",phVille:"Brussels",phMsg:"Desired phone model, questions…",sendBtn:"Receive my personalised offer — Free & no commitment →",okTitle:"Request sent!",okSub:"Your personal consultant will contact you within 24h.",footerSub:"Domestic charges broker · Belgium",footerNote:"100% free service · Prices incl. VAT",searchOp:"Search your operator…",searchMob:"Search your mobile operator…",postpaid:"Monthly subscription",prepaid:"Prepaid",credit:"Device on instalments",dataVol:"Data volume",calls:"Calls & SMS",monthlyPrice:"Current monthly price",notSpec:"Not specified",lessThan5:"Less than 5 GB",from5to10:"5 to 10 GB",from10to20:"10 to 20 GB",from20to50:"20 to 50 GB",from50to100:"50 to 100 GB",unlimited:"Unlimited",limitedCalls:"Limited",unlimitedCalls:"Unlimited",packTab:"📦 In the Pack",aloneTab:"📋 Without Pack",aloneNote:"Standalone rate — no Pack discount",discLabel:"Pack",contractType:"Contract type",curCardTitle:"📱 Current line",opLabel:"Current operator",searchMobPh:"Search…",free1yrShort:"Free 1 year",mobPackSubHtml:'<strong style="color:var(--blue2)">In the Pack</strong> — 1st mobile <strong style="color:var(--green)">−€10/mo</strong>, from 2nd onwards <strong style="color:var(--green)">−€5/mo</strong>.'},
-de:{kicker:"Telecom-Makler · Belgien",h1a:"Vergleichen.",h1b:"Sparen.",heroSub:"Ein persönlicher Berater. Eine maßgeschneiderte Analyse. Echte Ersparnisse ab dem ersten Monat.",heroBtn:"Kostenlos starten →",heroBtnNote:"100% kostenlos · Ohne Verpflichtung",stat1num:"+230",stat1lbl:"Zufriedene Kunden",stat2num:"−47€",stat2lbl:"Ersparnis/Monat",stat3num:"24h",stat3lbl:"Antwortzeit",reviewsLabel:"Was unsere Kunden sagen",r1text:'"Ich zahlte 134€ im Monat. Jetzt sind es 81€ für genau dieselben Dienste."',r1name:"— Nathalie D., Brüssel",r1saving:"−53€/Monat",r2text:'"Mein Berater hat alles geregelt, vom ersten Gespräch bis zur Aktivierung."',r2name:"— Yves M., Lüttich",r2saving:"−41€/Monat",r3text:'"Anfangs skeptisch, aber die Ergebnisse sprechen für sich."',r3name:"— Isabelle V., Gent",r3saving:"−58€/Monat",htb4:"Ohne Verpflichtung",pmTitle:"Was ist Ihr Profil?",pmSub:"Wählen Sie Ihr Profil für maßgeschneiderte Angebote.",pmPart:"Privatperson",pmPartDesc:"Privathaushalte · Preise inkl. MwSt.",pmPro:"Unternehmen",pmProDesc:"Geschäftsangebote · MwSt. erstattbar",navFree:"100% kostenlos",tb1:"zufriedene Kunden",tb2:"durchschnittliche Ersparnis",tb3a:"Antwort innerhalb",tb3b:"24h",tb4:"Ohne Verpflichtung · Vertraulich",tvaText:"MwSt. erstattbar",pbChange:"Profil ändern",steps:["Situation","Internet","Mobil","Promo","Kontakt"],s1title:"Ihre aktuelle Situation",s1sub:"Sagen Sie uns, was Sie heute haben",s1opLabel:"Aktueller Internet / TV / Festnetz-Anbieter",s1mobOpLabel:"Aktueller Mobilanbieter",specify:"Angeben:",autreOpPh:"Name Ihres aktuellen Anbieters…",autreMobPh:"Name Ihres Mobilanbieters…",s1servLabel:"Dienste in Ihrem aktuellen Abonnement",chipTV:"📺 Fernsehen",chipFixe:"☎️ Festnetz",chipMobile:"📱 Mobil(e)",s1engLabel:"Telefon auf monatliche Raten?",engNo:"✅ Nein, ich bin frei",engYes:"📲 Ja, ich zahle mein Gerät ab",engNoticeTitle:"Kein Problem.",engNoticeText:"Unsere reduzierten Tarife gelten sofort für alle Ihre anderen Dienste.",s1budgetLabel:"Was Sie derzeit zahlen",budgetHint:"Gesamtbetrag Ihrer aktuellen Monatsrechnung.",btnContinue:"Weiter →",btnBack:"← Zurück",btnValidate:"Bestätigen & weiter →",s2title:"Ihr Internetangebot & Optionen",s2sub:"Wählen Sie Ihre Verbindung, dann fügen Sie Optionen hinzu",s2netLabel:"Internetverbindung",ncWarn:"Falls Glasfaser nicht verfügbar",fiberLabel:"Glasfaser",s2optLabel:"Optionen",tvDesc:"+80 Sender · 1. TV-Box kostenlos · Replay",wifiDesc:"Optimale WLAN-Abdeckung im ganzen Haus",free1yr:"1 Jahr kostenlos",fixeLabel:"Festnetz",fixeDesc:"Unbegrenzte Inlandsgespräche",s3title:"Ihre Mobillinien",s3sub:"Beschreiben Sie Ihre aktuellen Leitungen",curMobTitle:"Ihre aktuellen Mobillinien",today:"Heute",curMobSub:"Für jedes Gerät: Anbieter, Vertragstyp, Datenvolumen und Monatspreis.",curMobLbl:"aktuelle Linie(n) (max. 6)",newMobTitle:"Gewünschte Mobillinien bei uns",newOffer:"Neues Angebot",simLbl:"gewünschte SIM-Linie(n) (max. 6)",portTitle:"Nummer behalten oder wechseln.",portText:"Ihr Berater kümmert sich um alle Portabilitätsschritte.",deviceTitle:"Erwerb eines neuen Geräts.",deviceText:"Barkauf oder Ratenzahlung, Ihr Berater führt Sie.",s4title:"Ihre Aktion & Zusammenfassung",s4sub:"Wählen Sie Ihre Dauer — Ihr Gesamtbetrag wird in Echtzeit aktualisiert",s4promoLabel:"Aktionsdauer",suiviTitle:"Ein persönlicher Berater wird Ihnen zugewiesen",suiviDesc:"Nach der Bestätigung <strong>übernimmt ein dedizierter Berater Ihre Akte persönlich</strong>. Er teilt Ihnen seine Direktnummer mit. <strong>Garantierte Antwort innerhalb von 24h.</strong>",spDirect:"📞 Direktnummer",spPrivate:"🔒 Private Begleitung",sp24h:"⚡ Innerhalb 24h",spFree:"🎁 100% kostenlos",s4recapLabel:"Zusammenfassung Ihres Angebots",recapEmpty:"Wählen Sie eine Aktion oben",promoNoticeText:"ℹ️ <strong>6-Monats-Aktion:</strong> der −10€/Monat-Rabatt gilt nur bei Kombination mit einem weiteren Dienst.",s5title:"Ihre Kontaktdaten",s5sub:"Ihr Berater kontaktiert Sie innerhalb von 24h",fPrenom:"Vorname *",fNom:"Nachname *",fAdresse:"Adresse *",fCP:"Postleitzahl *",fVille:"Stadt *",fTel:"Telefon *",fEmail:"E-Mail *",fTVA:"MwSt.-Nummer",fMsg:"Nachricht (optional)",phPrenom:"Hans",phNom:"Müller",phAdresse:"Gesetzstraße 16",phVille:"Brüssel",phMsg:"Gewünschtes Telefonmodell, Fragen…",sendBtn:"Mein personalisiertes Angebot erhalten — Kostenlos & ohne Verpflichtung →",okTitle:"Anfrage gesendet!",okSub:"Ihr persönlicher Berater kontaktiert Sie innerhalb von 24h.",footerSub:"Makler für Haushaltskosten · Belgien",footerNote:"100% kostenloser Service · Preise inkl. MwSt.",searchOp:"Suchen Sie Ihren Anbieter…",searchMob:"Suchen Sie Ihren Mobilanbieter…",postpaid:"Monatsabonnement",prepaid:"Prepaid",credit:"Gerät auf Raten",dataVol:"Datenvolumen",calls:"Anrufe & SMS",monthlyPrice:"Aktueller Monatspreis",notSpec:"Nicht angegeben",lessThan5:"Weniger als 5 GB",from5to10:"5 bis 10 GB",from10to20:"10 bis 20 GB",from20to50:"20 bis 50 GB",from50to100:"50 bis 100 GB",unlimited:"Unbegrenzt",limitedCalls:"Begrenzt",unlimitedCalls:"Unbegrenzt",packTab:"📦 Im Pack",aloneTab:"📋 Ohne Pack",aloneNote:"Einzeltarif — ohne Pack-Rabatt",discLabel:"Pack",contractType:"Vertragstyp",curCardTitle:"📱 Aktuelle Linie",opLabel:"Aktueller Anbieter",searchMobPh:"Suchen…",free1yrShort:"1 Jahr kostenlos",mobPackSubHtml:'<strong style="color:var(--blue2)">Im Pack</strong> — 1. Mobil <strong style="color:var(--green)">−10€/Monat</strong>, ab dem 2. <strong style="color:var(--green)">−5€/Monat</strong>.'}
+fr:{kicker:"Courtier en charges domestiques · Belgique",h1a:"Comparez.",h1b:"Économisez.",heroSub:"Un consultant personnel. Une analyse sur-mesure. Des économies réelles dès le premier mois.",heroBtn:"Commencer gratuitement →",heroBtnNote:"100% gratuit · Sans engagement",stat1num:"+230",stat1lbl:"Clients satisfaits",stat2num:"−47€",stat2lbl:"Économies/mois",stat3num:"24h",stat3lbl:"Délai de réponse",reviewsLabel:"Ce que disent nos clients",r1text:'"Franchement j\'avais la flemme de changer, je pensais que c\'était compliqué. Le consultant a tout géré en 20 minutes. Résultat : 53€ de moins par mois, même vitesse, même TV. Je me sens bête de ne pas l\'avoir fait avant."',r1name:"— Nathalie D., Bruxelles · Proximus → SBC",r1saving:"−53€/mois",r2text:'"J\'étais convaincu que mon opérateur me donnait le meilleur prix parce que j\'étais client depuis 11 ans. Mon consultant m\'a montré ma facture en détail. J\'avais des options dont je ne savais même plus pourquoi je payais. 41€ récupérés, sans rien perdre."',r2name:"— Yves M., Liège · Client 11 ans chez Telenet",r2saving:"−41€/mois",r3text:'"On nous a dit que c\'était gratuit et sans engagement. J\'ai cherché le piège. Il n\'y en avait pas. Mon mari et moi économisons maintenant 116€ par mois à nous deux. On l\'a dit à toute la famille."',r3name:"— Isabelle V., Gand · Avec son mari",r3saving:"−58€/mois",htb4:"Sans engagement",pmTitle:"Quel est votre profil ?",pmSub:"Choisissez votre profil pour recevoir les offres et conditions adaptées.",pmPart:"Particulier",pmPartDesc:"Offres résidentielles · Prix TVAC",pmPro:"Professionnel",pmProDesc:"Offres business · TVA récupérable · Facturation",navFree:"100% gratuit",tb1:"clients satisfaits",tb2:"d'économies moyennes",tb3a:"Réponse sous",tb3b:"24h",tb4:"Sans engagement · Confidentiel",tvaText:"TVA récupérable",pbChange:"Changer de profil",steps:["Situation","Internet","Mobiles","Promo","Contact"],s1title:"Votre situation actuelle",s1sub:"Dites-nous ce que vous avez aujourd'hui",s1opLabel:"Opérateur Internet / TV / Fixe actuel",s1mobOpLabel:"Opérateur mobile actuel",specify:"Précisez :",autreOpPh:"Nom de votre opérateur actuel…",autreMobPh:"Nom de votre opérateur mobile…",s1servLabel:"Services dans votre abonnement actuel",chipTV:"📺 Télévision",chipFixe:"☎️ Ligne fixe",chipMobile:"📱 Mobile(s)",s1engLabel:"Téléphone en remboursement mensuel ?",engNo:"✅ Non, je suis libre",engYes:"📲 Oui, je rembourse mon téléphone",engNoticeTitle:"Aucun problème.",engNoticeText:"Nos tarifs réduits s'appliquent immédiatement sur tous vos autres services.",s1budgetLabel:"Ce que vous payez actuellement",budgetHint:"Montant total de votre facture mensuelle actuelle, tous services confondus.",btnContinue:"Continuer →",btnBack:"← Retour",btnValidate:"Valider & continuer →",s2title:"Votre offre internet & options",s2sub:"Choisissez votre connexion, puis ajoutez vos options",s2netLabel:"Connexion internet",ncWarn:"Si fibre indisponible",fiberLabel:"Fibre optique",s2optLabel:"Options",tvDesc:"+80 chaînes · 1ère TV-Box offerte · Replay",wifiDesc:"Couverture WiFi optimale dans toute la maison",free1yr:"Gratuit 1 an",fixeLabel:"Ligne fixe",fixeDesc:"Appels nationaux illimités · sans frais cachés",s3title:"Vos mobiles",s3sub:"Décrivez vos lignes actuelles, puis choisissez vos nouvelles offres",curMobTitle:"Vos mobiles actuels",today:"Aujourd'hui",curMobSub:"Pour chaque mobile : opérateur, type de contrat, volume de données et prix mensuel.",curMobLbl:"ligne(s) actuellement (max 6)",newMobTitle:"Mobiles souhaités avec nous",newOffer:"Nouvelle offre",simLbl:"ligne(s) SIM souhaitée(s) (max 6)",portTitle:"Conservation ou changement de numéro.",portText:"Votre consultant gère l'ensemble des démarches de portabilité.",deviceTitle:"Acquisition d'un nouveau terminal.",deviceText:"Achat comptant ou en mensualités, votre consultant vous guide.",s4title:"Votre promotion & récapitulatif",s4sub:"Choisissez votre durée — votre total se met à jour en temps réel",s4promoLabel:"Durée promotionnelle",suiviTitle:"Un consultant personnel vous est attribué",suiviDesc:"Dès validation, <strong>un consultant dédié prend en charge votre dossier personnellement</strong>. Il vous communique son numéro direct et vous accompagne de A à Z. <strong>Réponse garantie sous 24h.</strong>",spDirect:"📞 Numéro direct",spPrivate:"🔒 Suivi privé",sp24h:"⚡ Sous 24h",spFree:"🎁 100% gratuit",s4recapLabel:"Récapitulatif de votre offre",recapEmpty:"Sélectionnez une promotion ci-dessus",promoNoticeText:"ℹ️ <strong>Promo 6 mois :</strong> la réduction de −10€/mois s'active si vous combinez internet avec au moins un service supplémentaire.",s5title:"Vos coordonnées",s5sub:"Votre consultant vous contacte avec son numéro direct sous 24h",fPrenom:"Prénom *",fNom:"Nom *",fAdresse:"Adresse *",fCP:"Code postal *",fVille:"Ville *",fTel:"Téléphone *",fEmail:"Email *",fTVA:"Numéro TVA",fMsg:"Message (optionnel)",phPrenom:"Jean",phNom:"Dupont",phAdresse:"Rue de la Loi 16",phVille:"Bruxelles",phMsg:"Modèle de téléphone souhaité, questions…",sendBtn:"Recevoir mon offre personnalisée — Gratuit & sans engagement →",okTitle:"Tout est en ordre ✅",okSub:"Vous recevrez une réponse d\'ici moins de 24h par WhatsApp ou sur votre numéro de téléphone. Votre consultant personnel prend en charge votre dossier dès maintenant.",footerSub:"Courtier en charges domestiques · Belgique",footerNote:"Service 100% gratuit pour le client · Prix TVAC",searchOp:"Cherchez votre opérateur…",searchMob:"Cherchez votre opérateur mobile…",postpaid:"Abonnement mensuel",prepaid:"Prépayé",credit:"Tél. en remboursement",dataVol:"Volume données",calls:"Appels & SMS",monthlyPrice:"Prix mensuel actuel",notSpec:"Non précisé",lessThan5:"Moins de 5 GB",from5to10:"5 à 10 GB",from10to20:"10 à 20 GB",from20to50:"20 à 50 GB",from50to100:"50 à 100 GB",unlimited:"Illimité",limitedCalls:"Limités",unlimitedCalls:"Illimités",packTab:"📦 Dans le Pack",aloneTab:"📋 Hors Pack",aloneNote:"Tarif autonome — sans réduction Pack",discLabel:"Pack",contractType:"Type de contrat",curCardTitle:"📱 Ligne actuelle",opLabel:"Opérateur actuel",searchMobPh:"Cherchez…",free1yrShort:"Gratuit 1 an",mobPackSubHtml:'<strong style="color:var(--blue2)">Dans le Pack</strong> — 1er mobile <strong style="color:var(--green)">−10€/mois</strong>, à partir du 2ème <strong style="color:var(--green)">−5€/mois</strong>.'},
+nl:{kicker:"Telecommakelaar · België",h1a:"Vergelijk.",h1b:"Bespaar.",heroSub:"Een persoonlijke consultant. Een analyse op maat. Echte besparingen vanaf de eerste maand.",heroBtn:"Gratis starten →",heroBtnNote:"100% gratis · Zonder verbintenis",stat1num:"+230",stat1lbl:"Tevreden klanten",stat2num:"−47€",stat2lbl:"Besparing/maand",stat3num:"24u",stat3lbl:"Reactietijd",reviewsLabel:"Wat onze klanten zeggen",r1text:'"Eerlijk gezegd had ik geen zin om te wisselen, ik dacht dat het ingewikkeld was. De consultant heeft alles in 20 minuten geregeld. Resultaat: 53€ minder per maand, zelfde snelheid, zelfde tv. Ik schaam me dat ik dit niet eerder heb gedaan."',r1name:"— Nathalie D., Brussel · Proximus → SBC",r1saving:"−53€/maand",r2text:'"Ik was ervan overtuigd dat mijn operator me de beste prijs gaf omdat ik al 11 jaar klant was. Mijn consultant toonde me mijn factuur in detail. Ik betaalde voor opties waarvan ik niet eens meer wist waarom. 41€ teruggewonnen, zonder iets te verliezen."',r2name:"— Yves M., Luik · 11 jaar klant bij Telenet",r2saving:"−41€/maand",r3text:'"Ze zeiden dat het gratis was en zonder verbintenis. Ik zocht de addertje onder het gras. Er was geen. Mijn man en ik besparen nu samen 116€ per maand. We hebben het aan de hele familie verteld."',r3name:"— Isabelle V., Gent · Met haar man",r3saving:"−58€/maand",htb4:"Zonder verbintenis",pmTitle:"Wat is uw profiel?",pmSub:"Kies uw profiel voor aangepaste aanbiedingen.",pmPart:"Particulier",pmPartDesc:"Residentiële aanbiedingen · Prijs incl. btw",pmPro:"Professioneel",pmProDesc:"Zakelijke aanbiedingen · Btw terugvorderbaar",navFree:"100% gratis",tb1:"tevreden klanten",tb2:"gemiddelde besparing",tb3a:"Antwoord binnen",tb3b:"24u",tb4:"Zonder verbintenis · Vertrouwelijk",tvaText:"Btw terugvorderbaar",pbChange:"Profiel wijzigen",steps:["Situatie","Internet","Mobiel","Promo","Contact"],s1title:"Uw huidige situatie",s1sub:"Vertel ons wat u vandaag heeft",s1opLabel:"Huidige internet / tv / vaste lijn operator",s1mobOpLabel:"Huidige mobiele operator",specify:"Preciseer:",autreOpPh:"Naam van uw huidige operator…",autreMobPh:"Naam van uw mobiele operator…",s1servLabel:"Diensten in uw huidige abonnement",chipTV:"📺 Televisie",chipFixe:"☎️ Vaste lijn",chipMobile:"📱 Mobiel(e)",s1engLabel:"Telefoon op maandelijkse afbetaling?",engNo:"✅ Nee, ik ben vrij",engYes:"📲 Ja, ik betaal mijn toestel af",engNoticeTitle:"Geen probleem.",engNoticeText:"Onze verlaagde tarieven gelden onmiddellijk voor al uw andere diensten.",s1budgetLabel:"Wat u momenteel betaalt",budgetHint:"Totaalbedrag van uw huidige maandfactuur, alle diensten samen.",btnContinue:"Verder →",btnBack:"← Terug",btnValidate:"Bevestigen & verder →",s2title:"Uw internet & opties",s2sub:"Kies uw verbinding en voeg opties toe",s2netLabel:"Internetverbinding",ncWarn:"Als glasvezel niet beschikbaar",fiberLabel:"Glasvezel",s2optLabel:"Opties",tvDesc:"+80 zenders · 1e TV-Box gratis · Replay",wifiDesc:"Optimale wifi-dekking door het hele huis",free1yr:"1 jaar gratis",fixeLabel:"Vaste lijn",fixeDesc:"Onbeperkt nationale oproepen",s3title:"Uw mobiele lijnen",s3sub:"Beschrijf uw huidige lijnen en kies uw nieuwe aanbiedingen",curMobTitle:"Uw huidige mobiele lijnen",today:"Vandaag",curMobSub:"Per mobiel: operator, contracttype, datavolume en maandprijs.",curMobLbl:"huidige lijn(en) (max 6)",newMobTitle:"Gewenste mobiele lijnen bij ons",newOffer:"Nieuw aanbod",simLbl:"gewenste SIM-lijn(en) (max 6)",portTitle:"Nummeroverdracht of nieuw nummer.",portText:"Uw consultant regelt alle portabiliteitsstappen.",deviceTitle:"Aankoop van een nieuw toestel.",deviceText:"Contante aankoop of op afbetaling, uw consultant begeleidt u.",s4title:"Uw promotie & samenvatting",s4sub:"Kies uw duur — uw totaal wordt real-time bijgewerkt",s4promoLabel:"Promotieduur",suiviTitle:"Er wordt een persoonlijke consultant aan u toegewezen",suiviDesc:"Na bevestiging <strong>neemt een toegewijde consultant uw dossier persoonlijk op</strong>. Hij geeft u zijn direct nummer. <strong>Gegarandeerd antwoord binnen 24u.</strong>",spDirect:"📞 Direct nummer",spPrivate:"🔒 Privébegeleiding",sp24h:"⚡ Binnen 24u",spFree:"🎁 100% gratis",s4recapLabel:"Samenvatting van uw aanbieding",recapEmpty:"Selecteer een promotie hierboven",promoNoticeText:"ℹ️ <strong>Promo 6 maanden:</strong> de −10€/mnd korting geldt alleen als u internet combineert met minstens één extra dienst.",s5title:"Uw contactgegevens",s5sub:"Uw consultant neemt contact op binnen 24u",fPrenom:"Voornaam *",fNom:"Achternaam *",fAdresse:"Adres *",fCP:"Postcode *",fVille:"Stad *",fTel:"Telefoon *",fEmail:"E-mail *",fTVA:"BTW-nummer",fMsg:"Bericht (optioneel)",phPrenom:"Jan",phNom:"Janssen",phAdresse:"Wetstraat 16",phVille:"Brussel",phMsg:"Gewenst toestelmodel, vragen…",sendBtn:"Mijn gepersonaliseerd aanbod ontvangen — Gratis & zonder verbintenis →",okTitle:"Alles is in orde ✅",okSub:"U ontvangt binnen 24u een antwoord via WhatsApp of op uw telefoonnummer. Uw persoonlijke consultant neemt uw dossier nu meteen op.",footerSub:"Makelaar in huishoudelijke lasten · België",footerNote:"100% gratis service voor de klant · Prijzen incl. btw",searchOp:"Zoek uw operator…",searchMob:"Zoek uw mobiele operator…",postpaid:"Maandabonnement",prepaid:"Prepaid",credit:"Toestel op afbetaling",dataVol:"Datavolume",calls:"Bellen & sms",monthlyPrice:"Huidige maandprijs",notSpec:"Niet opgegeven",lessThan5:"Minder dan 5 GB",from5to10:"5 tot 10 GB",from10to20:"10 tot 20 GB",from20to50:"20 tot 50 GB",from50to100:"50 tot 100 GB",unlimited:"Onbeperkt",limitedCalls:"Beperkt",unlimitedCalls:"Onbeperkt",packTab:"📦 In het Pack",aloneTab:"📋 Buiten Pack",aloneNote:"Zelfstandig tarief — zonder Pack-korting",discLabel:"Pack",contractType:"Contracttype",curCardTitle:"📱 Huidige lijn",opLabel:"Huidige operator",searchMobPh:"Zoeken…",free1yrShort:"1 jaar gratis",mobPackSubHtml:'<strong style="color:var(--blue2)">In het Pack</strong> — 1e mobiel <strong style="color:var(--green)">−10€/mnd</strong>, vanaf het 2e <strong style="color:var(--green)">−5€/mnd</strong>.'},
+en:{kicker:"Telecom Broker · Belgium",h1a:"Compare.",h1b:"Save.",heroSub:"A personal consultant. A tailored analysis. Real savings from the very first month.",heroBtn:"Start for free →",heroBtnNote:"100% free · No commitment",stat1num:"+230",stat1lbl:"Satisfied clients",stat2num:"−€47",stat2lbl:"Savings/month",stat3num:"24h",stat3lbl:"Response time",reviewsLabel:"What our clients say",r1text:'"Honestly I couldn\'t be bothered to switch, I thought it would be complicated. The consultant handled everything in 20 minutes. Result: €53 less per month, same speed, same TV. I feel stupid for not doing it sooner."',r1name:"— Nathalie D., Brussels · Proximus → SBC",r1saving:"−€53/month",r2text:'"I was convinced my operator gave me the best price because I\'d been a customer for 11 years. My consultant went through my bill in detail. I was paying for options I\'d completely forgotten about. €41 recovered, without losing a thing."',r2name:"— Yves M., Liège · 11-year Telenet customer",r2saving:"−€41/month",r3text:'"They said it was free and no commitment. I looked for the catch. There wasn\'t one. My husband and I now save €116 a month between us. We\'ve told the whole family."',r3name:"— Isabelle V., Ghent · With her husband",r3saving:"−€58/month",htb4:"No commitment",pmTitle:"What is your profile?",pmSub:"Choose your profile to receive tailored offers.",pmPart:"Individual",pmPartDesc:"Residential offers · Prices incl. VAT",pmPro:"Professional",pmProDesc:"Business offers · VAT reclaimable",navFree:"100% free",tb1:"satisfied clients",tb2:"average savings",tb3a:"Reply within",tb3b:"24h",tb4:"No commitment · Confidential",tvaText:"VAT reclaimable",pbChange:"Change profile",steps:["Situation","Internet","Mobile","Promo","Contact"],s1title:"Your current situation",s1sub:"Tell us what you have today",s1opLabel:"Current Internet / TV / Landline operator",s1mobOpLabel:"Current mobile operator",specify:"Specify:",autreOpPh:"Name of your current operator…",autreMobPh:"Name of your mobile operator…",s1servLabel:"Services in your current subscription",chipTV:"📺 Television",chipFixe:"☎️ Landline",chipMobile:"📱 Mobile(s)",s1engLabel:"Phone on monthly instalments?",engNo:"✅ No, I'm free",engYes:"📲 Yes, I'm paying off my device",engNoticeTitle:"No problem.",engNoticeText:"Our reduced rates apply immediately to all your other services.",s1budgetLabel:"What you currently pay",budgetHint:"Total amount of your current monthly bill, all services combined.",btnContinue:"Continue →",btnBack:"← Back",btnValidate:"Confirm & continue →",s2title:"Your internet offer & options",s2sub:"Choose your connection, then add your options",s2netLabel:"Internet connection",ncWarn:"If fibre unavailable",fiberLabel:"Fibre optic",s2optLabel:"Options",tvDesc:"+80 channels · 1st TV-Box free · Replay",wifiDesc:"Optimal WiFi coverage throughout your home",free1yr:"Free 1 year",fixeLabel:"Landline",fixeDesc:"Unlimited national calls · No hidden fees",s3title:"Your mobile lines",s3sub:"Describe your current lines, then choose your new offers",curMobTitle:"Your current mobile lines",today:"Today",curMobSub:"For each mobile: operator, contract type, data volume and monthly price.",curMobLbl:"current line(s) (max 6)",newMobTitle:"Desired mobile lines with us",newOffer:"New offer",simLbl:"desired SIM line(s) (max 6)",portTitle:"Keep or change your number.",portText:"Your consultant handles all portability steps.",deviceTitle:"Acquiring a new device.",deviceText:"Cash purchase or instalments, your consultant guides you.",s4title:"Your promotion & summary",s4sub:"Choose your duration — your total updates in real time",s4promoLabel:"Promotional duration",suiviTitle:"A personal consultant is assigned to you",suiviDesc:"Upon confirmation, <strong>a dedicated consultant personally takes charge of your file</strong>. They give you their direct number. <strong>Reply guaranteed within 24h.</strong>",spDirect:"📞 Direct number",spPrivate:"🔒 Private follow-up",sp24h:"⚡ Within 24h",spFree:"🎁 100% free",s4recapLabel:"Summary of your offer",recapEmpty:"Select a promotion above",promoNoticeText:"ℹ️ <strong>6-month promo:</strong> the −€10/mo discount only activates when you combine internet with at least one additional service.",s5title:"Your contact details",s5sub:"Your consultant will contact you within 24h",fPrenom:"First name *",fNom:"Last name *",fAdresse:"Address *",fCP:"Postcode *",fVille:"City *",fTel:"Phone *",fEmail:"Email *",fTVA:"VAT number",fMsg:"Message (optional)",phPrenom:"John",phNom:"Smith",phAdresse:"16 Law Street",phVille:"Brussels",phMsg:"Desired phone model, questions…",sendBtn:"Receive my personalised offer — Free & no commitment →",okTitle:"Everything is in order ✅",okSub:"You will receive a reply within 24 hours via WhatsApp or on your phone number. Your personal consultant is taking charge of your file right now.",footerSub:"Domestic charges broker · Belgium",footerNote:"100% free service · Prices incl. VAT",searchOp:"Search your operator…",searchMob:"Search your mobile operator…",postpaid:"Monthly subscription",prepaid:"Prepaid",credit:"Device on instalments",dataVol:"Data volume",calls:"Calls & SMS",monthlyPrice:"Current monthly price",notSpec:"Not specified",lessThan5:"Less than 5 GB",from5to10:"5 to 10 GB",from10to20:"10 to 20 GB",from20to50:"20 to 50 GB",from50to100:"50 to 100 GB",unlimited:"Unlimited",limitedCalls:"Limited",unlimitedCalls:"Unlimited",packTab:"📦 In the Pack",aloneTab:"📋 Without Pack",aloneNote:"Standalone rate — no Pack discount",discLabel:"Pack",contractType:"Contract type",curCardTitle:"📱 Current line",opLabel:"Current operator",searchMobPh:"Search…",free1yrShort:"Free 1 year",mobPackSubHtml:'<strong style="color:var(--blue2)">In the Pack</strong> — 1st mobile <strong style="color:var(--green)">−€10/mo</strong>, from 2nd onwards <strong style="color:var(--green)">−€5/mo</strong>.'},
+de:{kicker:"Telecom-Makler · Belgien",h1a:"Vergleichen.",h1b:"Sparen.",heroSub:"Ein persönlicher Berater. Eine maßgeschneiderte Analyse. Echte Ersparnisse ab dem ersten Monat.",heroBtn:"Kostenlos starten →",heroBtnNote:"100% kostenlos · Ohne Verpflichtung",stat1num:"+230",stat1lbl:"Zufriedene Kunden",stat2num:"−47€",stat2lbl:"Ersparnis/Monat",stat3num:"24h",stat3lbl:"Antwortzeit",reviewsLabel:"Was unsere Kunden sagen",r1text:'"Ehrlich gesagt hatte ich keine Lust zu wechseln, ich dachte es wäre kompliziert. Der Berater hat alles in 20 Minuten geregelt. 53€ weniger pro Monat, gleiche Geschwindigkeit, gleiches TV. Ich ärgere mich, dass ich das nicht früher gemacht habe."',r1name:"— Nathalie D., Brüssel · Proximus → SBC",r1saving:"−53€/Monat",r2text:'"Ich war überzeugt, dass mein Anbieter mir den besten Preis gibt, weil ich seit 11 Jahren Kunde war. Mein Berater hat meine Rechnung durchgegangen. Ich zahlte für Optionen, an die ich mich nicht mal erinnern konnte. 41€ zurückgewonnen, ohne etwas zu verlieren."',r2name:"— Yves M., Lüttich · 11 Jahre Telenet-Kunde",r2saving:"−41€/Monat",r3text:'"Sie sagten, es sei kostenlos und ohne Verpflichtung. Ich suchte den Haken. Es gab keinen. Mein Mann und ich sparen jetzt zusammen 116€ pro Monat. Wir haben es der ganzen Familie erzählt."',r3name:"— Isabelle V., Gent · Mit ihrem Mann",r3saving:"−58€/Monat",htb4:"Ohne Verpflichtung",pmTitle:"Was ist Ihr Profil?",pmSub:"Wählen Sie Ihr Profil für maßgeschneiderte Angebote.",pmPart:"Privatperson",pmPartDesc:"Privathaushalte · Preise inkl. MwSt.",pmPro:"Unternehmen",pmProDesc:"Geschäftsangebote · MwSt. erstattbar",navFree:"100% kostenlos",tb1:"zufriedene Kunden",tb2:"durchschnittliche Ersparnis",tb3a:"Antwort innerhalb",tb3b:"24h",tb4:"Ohne Verpflichtung · Vertraulich",tvaText:"MwSt. erstattbar",pbChange:"Profil ändern",steps:["Situation","Internet","Mobil","Promo","Kontakt"],s1title:"Ihre aktuelle Situation",s1sub:"Sagen Sie uns, was Sie heute haben",s1opLabel:"Aktueller Internet / TV / Festnetz-Anbieter",s1mobOpLabel:"Aktueller Mobilanbieter",specify:"Angeben:",autreOpPh:"Name Ihres aktuellen Anbieters…",autreMobPh:"Name Ihres Mobilanbieters…",s1servLabel:"Dienste in Ihrem aktuellen Abonnement",chipTV:"📺 Fernsehen",chipFixe:"☎️ Festnetz",chipMobile:"📱 Mobil(e)",s1engLabel:"Telefon auf monatliche Raten?",engNo:"✅ Nein, ich bin frei",engYes:"📲 Ja, ich zahle mein Gerät ab",engNoticeTitle:"Kein Problem.",engNoticeText:"Unsere reduzierten Tarife gelten sofort für alle Ihre anderen Dienste.",s1budgetLabel:"Was Sie derzeit zahlen",budgetHint:"Gesamtbetrag Ihrer aktuellen Monatsrechnung.",btnContinue:"Weiter →",btnBack:"← Zurück",btnValidate:"Bestätigen & weiter →",s2title:"Ihr Internetangebot & Optionen",s2sub:"Wählen Sie Ihre Verbindung, dann fügen Sie Optionen hinzu",s2netLabel:"Internetverbindung",ncWarn:"Falls Glasfaser nicht verfügbar",fiberLabel:"Glasfaser",s2optLabel:"Optionen",tvDesc:"+80 Sender · 1. TV-Box kostenlos · Replay",wifiDesc:"Optimale WLAN-Abdeckung im ganzen Haus",free1yr:"1 Jahr kostenlos",fixeLabel:"Festnetz",fixeDesc:"Unbegrenzte Inlandsgespräche",s3title:"Ihre Mobillinien",s3sub:"Beschreiben Sie Ihre aktuellen Leitungen",curMobTitle:"Ihre aktuellen Mobillinien",today:"Heute",curMobSub:"Für jedes Gerät: Anbieter, Vertragstyp, Datenvolumen und Monatspreis.",curMobLbl:"aktuelle Linie(n) (max. 6)",newMobTitle:"Gewünschte Mobillinien bei uns",newOffer:"Neues Angebot",simLbl:"gewünschte SIM-Linie(n) (max. 6)",portTitle:"Nummer behalten oder wechseln.",portText:"Ihr Berater kümmert sich um alle Portabilitätsschritte.",deviceTitle:"Erwerb eines neuen Geräts.",deviceText:"Barkauf oder Ratenzahlung, Ihr Berater führt Sie.",s4title:"Ihre Aktion & Zusammenfassung",s4sub:"Wählen Sie Ihre Dauer — Ihr Gesamtbetrag wird in Echtzeit aktualisiert",s4promoLabel:"Aktionsdauer",suiviTitle:"Ein persönlicher Berater wird Ihnen zugewiesen",suiviDesc:"Nach der Bestätigung <strong>übernimmt ein dedizierter Berater Ihre Akte persönlich</strong>. Er teilt Ihnen seine Direktnummer mit. <strong>Garantierte Antwort innerhalb von 24h.</strong>",spDirect:"📞 Direktnummer",spPrivate:"🔒 Private Begleitung",sp24h:"⚡ Innerhalb 24h",spFree:"🎁 100% kostenlos",s4recapLabel:"Zusammenfassung Ihres Angebots",recapEmpty:"Wählen Sie eine Aktion oben",promoNoticeText:"ℹ️ <strong>6-Monats-Aktion:</strong> der −10€/Monat-Rabatt gilt nur bei Kombination mit einem weiteren Dienst.",s5title:"Ihre Kontaktdaten",s5sub:"Ihr Berater kontaktiert Sie innerhalb von 24h",fPrenom:"Vorname *",fNom:"Nachname *",fAdresse:"Adresse *",fCP:"Postleitzahl *",fVille:"Stadt *",fTel:"Telefon *",fEmail:"E-Mail *",fTVA:"MwSt.-Nummer",fMsg:"Nachricht (optional)",phPrenom:"Hans",phNom:"Müller",phAdresse:"Gesetzstraße 16",phVille:"Brüssel",phMsg:"Gewünschtes Telefonmodell, Fragen…",sendBtn:"Mein personalisiertes Angebot erhalten — Kostenlos & ohne Verpflichtung →",okTitle:"Alles in Ordnung ✅",okSub:"Sie erhalten innerhalb von 24 Stunden eine Antwort per WhatsApp oder auf Ihrer Telefonnummer. Ihr persönlicher Berater kümmert sich jetzt sofort um Ihre Akte.",footerSub:"Makler für Haushaltskosten · Belgien",footerNote:"100% kostenloser Service · Preise inkl. MwSt.",searchOp:"Suchen Sie Ihren Anbieter…",searchMob:"Suchen Sie Ihren Mobilanbieter…",postpaid:"Monatsabonnement",prepaid:"Prepaid",credit:"Gerät auf Raten",dataVol:"Datenvolumen",calls:"Anrufe & SMS",monthlyPrice:"Aktueller Monatspreis",notSpec:"Nicht angegeben",lessThan5:"Weniger als 5 GB",from5to10:"5 bis 10 GB",from10to20:"10 bis 20 GB",from20to50:"20 bis 50 GB",from50to100:"50 bis 100 GB",unlimited:"Unbegrenzt",limitedCalls:"Begrenzt",unlimitedCalls:"Unbegrenzt",packTab:"📦 Im Pack",aloneTab:"📋 Ohne Pack",aloneNote:"Einzeltarif — ohne Pack-Rabatt",discLabel:"Pack",contractType:"Vertragstyp",curCardTitle:"📱 Aktuelle Linie",opLabel:"Aktueller Anbieter",searchMobPh:"Suchen…",free1yrShort:"1 Jahr kostenlos",mobPackSubHtml:'<strong style="color:var(--blue2)">Im Pack</strong> — 1. Mobil <strong style="color:var(--green)">−10€/Monat</strong>, ab dem 2. <strong style="color:var(--green)">−5€/Monat</strong>.'}
 };
 
 const LANGS=['fr','nl','en','de'];
@@ -470,78 +472,45 @@ function tr(k){return (T[lang]&&T[lang][k])||T.fr[k]||k;}
 
 const S={profile:'part',promo:6,operateur:'',operateurMobile:'',operateurAutre:'',operateurMobileAutre:'',engagement:'',hasServices:{},budgetActuel:0,internet:null,netPrice:0,netName:'',opts:{},curMobCount:0,curMobs:[],simCount:0,sims:[]};
 
-// Lang bar
 function buildLangBar(){
-  const bar=document.getElementById('langBar');
-  bar.innerHTML='';
+  const bar=document.getElementById('langBar');bar.innerHTML='';
   LANGS.forEach(l=>{
-    const b=document.createElement('button');
-    b.className='lang-btn'+(l===lang?' active':'');
-    b.textContent=l.toUpperCase();
-    b.addEventListener('click',()=>setLang(l));
-    bar.appendChild(b);
+    const b=document.createElement('button');b.className='lang-btn'+(l===lang?' active':'');b.textContent=l.toUpperCase();
+    b.addEventListener('click',()=>setLang(l));bar.appendChild(b);
   });
 }
-
 function setLang(l){lang=l;buildLangBar();renderAll();}
 
 function renderAll(){
-  // Hero
   set('kicker',tr('kicker'));set('h1a',tr('h1a'));set('h1b',tr('h1b'));set('heroSub',tr('heroSub'));
-  set('stat1num',tr('stat1num'));set('stat1lbl',tr('stat1lbl'));
-  set('stat2num',tr('stat2num'));set('stat2lbl',tr('stat2lbl'));
-  set('stat3num',tr('stat3num'));set('stat3lbl',tr('stat3lbl'));
-  set('heroBtn',tr('heroBtn'));set('heroBtnNote',tr('heroBtnNote'));
-  set('reviewsLabel',tr('reviewsLabel'));
+  set('stat1num',tr('stat1num'));set('stat1lbl',tr('stat1lbl'));set('stat2num',tr('stat2num'));set('stat2lbl',tr('stat2lbl'));set('stat3num',tr('stat3num'));set('stat3lbl',tr('stat3lbl'));
+  set('heroBtn',tr('heroBtn'));set('heroBtnNote',tr('heroBtnNote'));set('reviewsLabel',tr('reviewsLabel'));
   set('r1text',tr('r1text'));set('r1name',tr('r1name'));set('r1saving',tr('r1saving'));
   set('r2text',tr('r2text'));set('r2name',tr('r2name'));set('r2saving',tr('r2saving'));
   set('r3text',tr('r3text'));set('r3name',tr('r3name'));set('r3saving',tr('r3saving'));
   set('htb1',tr('tb1'));set('htb3a',tr('tb3a'));set('htb3b',tr('tb3b'));set('htbFree',tr('navFree'));set('htb4',tr('htb4'));
-  // Profile
-  set('pmTitle',tr('pmTitle'));set('pmSub',tr('pmSub'));
-  set('pmPartLbl',tr('pmPart'));set('pmPartDesc',tr('pmPartDesc'));
-  set('pmProLbl',tr('pmPro'));set('pmProDesc',tr('pmProDesc'));
-  // Nav/app
-  set('navFree',tr('navFree'));set('tb1',tr('tb1'));set('tb2',tr('tb2'));
-  set('tb3a',tr('tb3a'));set('tb3b',tr('tb3b'));set('tb4',tr('tb4'));
-  set('tvaText',tr('tvaText'));set('pbChange',tr('pbChange'));
-  // Steps
-  set('s1title',tr('s1title'));set('s1sub',tr('s1sub'));
-  set('s1opLabel',tr('s1opLabel'));set('s1mobOpLabel',tr('s1mobOpLabel'));
+  set('pmTitle',tr('pmTitle'));set('pmSub',tr('pmSub'));set('pmPartLbl',tr('pmPart'));set('pmPartDesc',tr('pmPartDesc'));set('pmProLbl',tr('pmPro'));set('pmProDesc',tr('pmProDesc'));
+  set('navFree',tr('navFree'));set('tb1',tr('tb1'));set('tb2',tr('tb2'));set('tb3a',tr('tb3a'));set('tb3b',tr('tb3b'));set('tb4',tr('tb4'));set('tvaText',tr('tvaText'));set('pbChange',tr('pbChange'));
+  set('s1title',tr('s1title'));set('s1sub',tr('s1sub'));set('s1opLabel',tr('s1opLabel'));set('s1mobOpLabel',tr('s1mobOpLabel'));
   set('autreOpLbl',tr('specify'));set('autreMobLbl',tr('specify'));
-  ph('sOp',tr('searchOp'));ph('sMob',tr('searchMob'));
-  ph('autreOp',tr('autreOpPh'));ph('autreMob',tr('autreMobPh'));
+  ph('sOp',tr('searchOp'));ph('sMob',tr('searchMob'));ph('autreOp',tr('autreOpPh'));ph('autreMob',tr('autreMobPh'));
   set('s1servLabel',tr('s1servLabel'));buildServChips();
   set('s1engLabel',tr('s1engLabel'));buildEngChips();
   set('engNoticeTitle',tr('engNoticeTitle'));set('engNoticeText',tr('engNoticeText'));
-  set('s1budgetLabel',tr('s1budgetLabel'));set('budgetHint',tr('budgetHint'));
-  set('btn1next',tr('btnContinue'));
-  set('s2title',tr('s2title'));set('s2sub',tr('s2sub'));
-  set('s2netLabel',tr('s2netLabel'));buildNetGrid();
-  set('s2optLabel',tr('s2optLabel'));buildOptList();
+  set('s1budgetLabel',tr('s1budgetLabel'));set('budgetHint',tr('budgetHint'));set('btn1next',tr('btnContinue'));
+  set('s2title',tr('s2title'));set('s2sub',tr('s2sub'));set('s2netLabel',tr('s2netLabel'));buildNetGrid();set('s2optLabel',tr('s2optLabel'));buildOptList();
   set('btn2back',tr('btnBack'));set('btn2next',tr('btnContinue'));
-  set('s3title',tr('s3title'));set('s3sub',tr('s3sub'));
-  set('curMobTitle',tr('curMobTitle'));set('todayBadge',tr('today'));
-  set('curMobSub',tr('curMobSub'));set('curMobLbl',tr('curMobLbl'));
+  set('s3title',tr('s3title'));set('s3sub',tr('s3sub'));set('curMobTitle',tr('curMobTitle'));set('todayBadge',tr('today'));set('curMobSub',tr('curMobSub'));set('curMobLbl',tr('curMobLbl'));
   set('newMobTitle',tr('newMobTitle'));set('newOfferBadge',tr('newOffer'));
   document.getElementById('mobPackSub').innerHTML=tr('mobPackSubHtml');
-  set('simLbl',tr('simLbl'));
-  set('portTitle',tr('portTitle'));set('portText',tr('portText'));
-  set('deviceTitle',tr('deviceTitle'));set('deviceText',tr('deviceText'));
+  set('simLbl',tr('simLbl'));set('portTitle',tr('portTitle'));set('portText',tr('portText'));set('deviceTitle',tr('deviceTitle'));set('deviceText',tr('deviceText'));
   set('btn3back',tr('btnBack'));set('btn3next',tr('btnContinue'));
-  set('s4title',tr('s4title'));set('s4sub',tr('s4sub'));
-  set('s4promoLabel',tr('s4promoLabel'));
-  set('suiviTitle',tr('suiviTitle'));
-  document.getElementById('suiviDesc').innerHTML=tr('suiviDesc');
-  buildSuiviPills();
-  set('s4recapLabel',tr('s4recapLabel'));
-  set('btn4back',tr('btnBack'));set('btn4next',tr('btnValidate'));
+  set('s4title',tr('s4title'));set('s4sub',tr('s4sub'));set('s4promoLabel',tr('s4promoLabel'));
+  set('suiviTitle',tr('suiviTitle'));document.getElementById('suiviDesc').innerHTML=tr('suiviDesc');buildSuiviPills();
+  set('s4recapLabel',tr('s4recapLabel'));set('btn4back',tr('btnBack'));set('btn4next',tr('btnValidate'));
   set('s5title',tr('s5title'));set('s5sub',tr('s5sub'));
-  set('lPrenom',tr('fPrenom'));set('lNom',tr('fNom'));set('lAdresse',tr('fAdresse'));
-  set('lCP',tr('fCP'));set('lVille',tr('fVille'));set('lTel',tr('fTel'));
-  set('lEmail',tr('fEmail'));set('lTVA',tr('fTVA'));set('lMsg',tr('fMsg'));
-  ph('f_prenom',tr('phPrenom'));ph('f_nom',tr('phNom'));ph('f_adresse',tr('phAdresse'));
-  ph('f_ville',tr('phVille'));ph('f_msg',tr('phMsg'));
+  set('lPrenom',tr('fPrenom'));set('lNom',tr('fNom'));set('lAdresse',tr('fAdresse'));set('lCP',tr('fCP'));set('lVille',tr('fVille'));set('lTel',tr('fTel'));set('lEmail',tr('fEmail'));set('lTVA',tr('fTVA'));set('lMsg',tr('fMsg'));
+  ph('f_prenom',tr('phPrenom'));ph('f_nom',tr('phNom'));ph('f_adresse',tr('phAdresse'));ph('f_ville',tr('phVille'));ph('f_msg',tr('phMsg'));
   set('sendBtn',tr('sendBtn'));set('okTitle',tr('okTitle'));set('okSub',tr('okSub'));
   set('footerSub',tr('footerSub'));set('footerNote',tr('footerNote'));
   buildStepper();
@@ -554,14 +523,10 @@ function set(id,v){const el=document.getElementById(id);if(el)el.innerHTML=v;}
 function ph(id,v){const el=document.getElementById(id);if(el)el.placeholder=v;}
 
 function buildStepper(){
-  const steps=tr('steps');
-  const el=document.getElementById('stepper');
-  el.innerHTML='';
+  const steps=tr('steps');const el=document.getElementById('stepper');el.innerHTML='';
   steps.forEach((s,i)=>{
-    const n=i+1;
-    const div=document.createElement('div');
-    div.className='si'+(n<S.currentStep?' done':n===S.currentStep?' active':'');
-    div.id='si'+n;
+    const n=i+1;const div=document.createElement('div');
+    div.className='si'+(n<S.currentStep?' done':n===S.currentStep?' active':'');div.id='si'+n;
     div.innerHTML=`<div class="si-dot">${n}</div><div class="si-lbl">${s}</div>`;
     el.appendChild(div);
   });
@@ -572,21 +537,16 @@ function buildServChips(){
   const defs=[['a_internet','📡 Internet'],['a_tv',tr('chipTV')],['a_fixe',tr('chipFixe')],['a_mobile',tr('chipMobile')]];
   c.innerHTML='';
   defs.forEach(([key,label])=>{
-    const d=document.createElement('div');
-    d.className='chip'+(S.hasServices[key]?' on':'');
-    d.textContent=label;
+    const d=document.createElement('div');d.className='chip'+(S.hasServices[key]?' on':'');d.textContent=label;
     d.addEventListener('click',()=>{d.classList.toggle('on');S.hasServices[key]=d.classList.contains('on');});
     c.appendChild(d);
   });
 }
 
 function buildEngChips(){
-  const c=document.getElementById('engChips');
-  c.innerHTML='';
+  const c=document.getElementById('engChips');c.innerHTML='';
   [{v:'Non',l:tr('engNo')},{v:'Oui',l:tr('engYes')}].forEach(({v,l})=>{
-    const d=document.createElement('div');
-    d.className='chip'+(S.engagement===v?' on':'');
-    d.textContent=l;
+    const d=document.createElement('div');d.className='chip'+(S.engagement===v?' on':'');d.textContent=l;
     d.addEventListener('click',()=>{
       document.querySelectorAll('#engChips .chip').forEach(c=>c.classList.remove('on'));
       d.classList.add('on');S.engagement=v;
@@ -606,9 +566,7 @@ function buildNetGrid(){
   ];
   g.innerHTML='';
   nets.forEach(n=>{
-    const d=document.createElement('div');
-    d.className='nc'+(S.internet===n.id?' on':'');
-    d.id='nc_'+n.id;
+    const d=document.createElement('div');d.className='nc'+(S.internet===n.id?' on':'');d.id='nc_'+n.id;
     d.innerHTML=`<div class="nc-chk">✓</div><div class="nc-icon">${n.icon}</div><div class="nc-name">${n.name}</div>${n.warn?`<div class="nc-warn">${tr('ncWarn')}</div>`:`<div class="nc-badge">✅ ${tr('fiberLabel')}</div>`}<div class="nc-speed">⬇️ ${n.speed}</div><div class="nc-tech">${n.tech}</div><div class="nc-price">${n.price.toFixed(2).replace('.',',')}€<span>/mois</span></div>`;
     d.addEventListener('click',()=>{
       const on=d.classList.contains('on');
@@ -629,8 +587,7 @@ function buildOptList(){
   ];
   ol.innerHTML='';
   opts.forEach(o=>{
-    const d=document.createElement('div');
-    d.className='opt'+(S.opts[o.key]?' on':'');
+    const d=document.createElement('div');d.className='opt'+(S.opts[o.key]?' on':'');
     d.innerHTML=`<div class="opt-l"><div class="opt-ico">${o.ico}</div><div><div class="opt-name">${o.name}</div><div class="opt-desc">${o.desc}</div></div></div><div class="opt-r"><span class="opt-price ${o.priceClass}">${o.priceLabel}</span><button class="tog"></button></div>`;
     d.addEventListener('click',()=>{
       d.classList.toggle('on');
@@ -642,39 +599,28 @@ function buildOptList(){
 }
 
 function buildSuiviPills(){
-  const p=document.getElementById('suiviPills');
-  if(!p)return;
+  const p=document.getElementById('suiviPills');if(!p)return;
   p.innerHTML=[tr('spDirect'),tr('spPrivate'),tr('sp24h'),tr('spFree')].map(s=>`<span class="suivi-pill">${s}</span>`).join('');
 }
 
-// Dropdowns
 function buildDD(ddId,list,key){
   const dd=document.getElementById(ddId);dd.innerHTML='';
   list.forEach(op=>{
-    const d=document.createElement('div');
-    d.className='di'+(S[key]===op.n?' sel':'');
+    const d=document.createElement('div');d.className='di'+(S[key]===op.n?' sel':'');
     d.innerHTML=`<span>${op.e}</span><span>${op.n}</span><span class="ck">✓</span>`;
-    d.addEventListener('mousedown',()=>selectOp(op,key));
-    dd.appendChild(d);
+    d.addEventListener('mousedown',()=>selectOp(op,key));dd.appendChild(d);
   });
 }
 
-function openDD(ddId,key){
-  const list=key==='operateur'?OPS_FIXE:OPS_MOB;
-  buildDD(ddId,list,key);
-  document.getElementById(ddId).classList.add('open');
-}
-
+function openDD(ddId,key){const list=key==='operateur'?OPS_FIXE:OPS_MOB;buildDD(ddId,list,key);document.getElementById(ddId).classList.add('open');}
 function filterDD(inId,ddId,key){
   const q=document.getElementById(inId).value.toLowerCase();
   const list=(key==='operateur'?OPS_FIXE:OPS_MOB).filter(o=>!q||o.n.toLowerCase().includes(q));
   const dd=document.getElementById(ddId);dd.innerHTML='';
   list.forEach(op=>{
-    const d=document.createElement('div');
-    d.className='di'+(S[key]===op.n?' sel':'');
+    const d=document.createElement('div');d.className='di'+(S[key]===op.n?' sel':'');
     d.innerHTML=`<span>${op.e}</span><span>${op.n}</span><span class="ck">✓</span>`;
-    d.addEventListener('mousedown',()=>selectOp(op,key));
-    dd.appendChild(d);
+    d.addEventListener('mousedown',()=>selectOp(op,key));dd.appendChild(d);
   });
   dd.classList.add('open');
 }
@@ -682,15 +628,8 @@ function filterDD(inId,ddId,key){
 function selectOp(op,key){
   S[key]=op.n;
   const isFixed=key==='operateur';
-  const inId=isFixed?'sOp':'sMob';
-  const ddId=isFixed?'dOp':'dMob';
-  const boxId=isFixed?'bOp':'bMob';
-  const clrId=isFixed?'clrOp':'clrMob';
-  const wrapId=isFixed?'autreOpWrap':'autreMobWrap';
-  const inpId=isFixed?'autreOp':'autreMob';
-  document.getElementById(inId).value='';
-  document.getElementById(clrId).classList.remove('vis');
-  document.getElementById(ddId).classList.remove('open');
+  const inId=isFixed?'sOp':'sMob';const ddId=isFixed?'dOp':'dMob';const boxId=isFixed?'bOp':'bMob';const clrId=isFixed?'clrOp':'clrMob';const wrapId=isFixed?'autreOpWrap':'autreMobWrap';const inpId=isFixed?'autreOp':'autreMob';
+  document.getElementById(inId).value='';document.getElementById(clrId).classList.remove('vis');document.getElementById(ddId).classList.remove('open');
   const badge=document.getElementById(boxId);
   badge.innerHTML=`<div class="sel-badge">${op.e} ${op.n}<button id="clrBadge_${key}">✕</button></div>`;
   document.getElementById('clrBadge_'+key).addEventListener('click',()=>clearOp(key));
@@ -701,30 +640,20 @@ function selectOp(op,key){
 
 function clearOp(key){
   S[key]='';S[key+'Autre']='';
-  const isFixed=key==='operateur';
-  const boxId=isFixed?'bOp':'bMob';
-  const wrapId=isFixed?'autreOpWrap':'autreMobWrap';
-  const inpId=isFixed?'autreOp':'autreMob';
-  document.getElementById(boxId).innerHTML='';
-  document.getElementById(wrapId).classList.remove('show');
-  document.getElementById(inpId).value='';
+  const isFixed=key==='operateur';const boxId=isFixed?'bOp':'bMob';const wrapId=isFixed?'autreOpWrap':'autreMobWrap';const inpId=isFixed?'autreOp':'autreMob';
+  document.getElementById(boxId).innerHTML='';document.getElementById(wrapId).classList.remove('show');document.getElementById(inpId).value='';
 }
 
-// Mob current lines
 function changeCurMob(d){
-  const n=Math.max(0,Math.min(6,S.curMobCount+d));
-  S.curMobCount=n;
+  const n=Math.max(0,Math.min(6,S.curMobCount+d));S.curMobCount=n;
   while(S.curMobs.length<n)S.curMobs.push({type:'postpaid',data:'',calls:'',price:'',operateur:''});
-  S.curMobs=S.curMobs.slice(0,n);
-  document.getElementById('curMobVal').textContent=n;
-  renderCurMobLines();
+  S.curMobs=S.curMobs.slice(0,n);document.getElementById('curMobVal').textContent=n;renderCurMobLines();
 }
 
 function renderCurMobLines(){
   const c=document.getElementById('curMobLines');c.innerHTML='';
   for(let i=0;i<S.curMobCount;i++){
-    const m=S.curMobs[i];
-    const div=document.createElement('div');div.className='cur-mob-card';
+    const m=S.curMobs[i];const div=document.createElement('div');div.className='cur-mob-card';
     div.innerHTML=`<div class="cur-mob-title">${tr('curCardTitle')} ${i+1}</div>
     <div class="cmf" style="margin-bottom:.55rem"><label>${tr('opLabel')}</label>
     <div class="cm-sw"><input class="cm-sinp" id="cmsOp_${i}" type="text" placeholder="${tr('searchMobPh')}"><div class="dropdown" id="cmDD_${i}"></div></div>
@@ -735,9 +664,7 @@ function renderCurMobLines(){
     <div class="cmf"><label>${tr('monthlyPrice')}</label><input type="number" id="cms_price_${i}" min="0" placeholder="ex: 18" value="${m.price||''}"></div>
     </div>`;
     c.appendChild(div);
-    // events
-    const sinp=document.getElementById('cmsOp_'+i);
-    const dd=document.getElementById('cmDD_'+i);
+    const sinp=document.getElementById('cmsOp_'+i);const dd=document.getElementById('cmDD_'+i);
     sinp.addEventListener('focus',()=>{buildCmDD(i);dd.classList.add('open');});
     sinp.addEventListener('blur',()=>setTimeout(()=>dd.classList.remove('open'),180));
     sinp.addEventListener('input',()=>filterCmDD(i,sinp.value));
@@ -753,47 +680,35 @@ function buildCmDD(i){
   OPS_MOB.forEach(op=>{
     const d=document.createElement('div');d.className='di'+(S.curMobs[i]?.operateur===op.n?' sel':'');
     d.innerHTML=`<span>${op.e}</span><span>${op.n}</span><span class="ck">✓</span>`;
-    d.addEventListener('mousedown',()=>{S.curMobs[i].operateur=op.n;document.getElementById('cmsOp_'+i).value='';renderCurMobLines();});
-    dd.appendChild(d);
+    d.addEventListener('mousedown',()=>{S.curMobs[i].operateur=op.n;document.getElementById('cmsOp_'+i).value='';renderCurMobLines();});dd.appendChild(d);
   });
 }
 
 function filterCmDD(i,q){
-  const dd=document.getElementById('cmDD_'+i);if(!dd)return;
-  dd.innerHTML='';
+  const dd=document.getElementById('cmDD_'+i);if(!dd)return;dd.innerHTML='';
   OPS_MOB.filter(o=>!q||o.n.toLowerCase().includes(q.toLowerCase())).forEach(op=>{
     const d=document.createElement('div');d.className='di'+(S.curMobs[i]?.operateur===op.n?' sel':'');
     d.innerHTML=`<span>${op.e}</span><span>${op.n}</span><span class="ck">✓</span>`;
-    d.addEventListener('mousedown',()=>{S.curMobs[i].operateur=op.n;document.getElementById('cmsOp_'+i).value='';renderCurMobLines();});
-    dd.appendChild(d);
+    d.addEventListener('mousedown',()=>{S.curMobs[i].operateur=op.n;document.getElementById('cmsOp_'+i).value='';renderCurMobLines();});dd.appendChild(d);
   });
   dd.classList.add('open');
 }
 
-// Sim lines
 function changeMob(d){
-  const n=Math.max(0,Math.min(6,S.simCount+d));
-  S.simCount=n;
+  const n=Math.max(0,Math.min(6,S.simCount+d));S.simCount=n;
   while(S.sims.length<n)S.sims.push({type:S.internet?'pack':'alone',forfait:null,fname:'',price:0});
-  S.sims=S.sims.slice(0,n);
-  document.getElementById('mobSimVal').textContent=n;
-  renderSimLines();
+  S.sims=S.sims.slice(0,n);document.getElementById('mobSimVal').textContent=n;renderSimLines();
 }
 
 function renderSimLines(){
-  const c=document.getElementById('mobSimLines');c.innerHTML='';
-  const hasPack=S.internet!==null;
+  const c=document.getElementById('mobSimLines');c.innerHTML='';const hasPack=S.internet!==null;
   for(let i=0;i<S.simCount;i++){
-    const m=S.sims[i];
-    if(!hasPack&&m.type==='pack'){m.type='alone';m.forfait=null;m.fname='';m.price=0;}
+    const m=S.sims[i];if(!hasPack&&m.type==='pack'){m.type='alone';m.forfait=null;m.fname='';m.price=0;}
     const div=document.createElement('div');div.className='mob-line';
-    const disc=i===0?10:5;
-    const badge=hasPack?`<span class="ptag-green">−${disc}€/mois Pack</span>`:'';
+    const disc=i===0?10:5;const badge=hasPack?`<span class="ptag-green">−${disc}€/mois Pack</span>`:'';
     div.innerHTML=`<div class="mob-line-head">📱 Mobile ${i+1} ${badge}</div><div class="type-tabs" id="ttabs_${i}">${hasPack?`<button class="ttab${m.type==='pack'?' on':''}" id="ttab_pack_${i}">${tr('packTab')}</button>`:''}<button class="ttab${m.type==='alone'?' on':''}" id="ttab_alone_${i}">${tr('aloneTab')}</button></div><div id="sfz_${i}"></div>`;
     c.appendChild(div);
-    if(hasPack){
-      document.getElementById('ttab_pack_'+i)?.addEventListener('click',function(){setSimType(i,'pack',this);});
-    }
+    if(hasPack){document.getElementById('ttab_pack_'+i)?.addEventListener('click',function(){setSimType(i,'pack',this);});}
     document.getElementById('ttab_alone_'+i)?.addEventListener('click',function(){setSimType(i,'alone',this);});
     renderSimForfait(i);
   }
@@ -801,20 +716,15 @@ function renderSimLines(){
 
 function setSimType(i,type,btn){
   S.sims[i]={type,forfait:null,fname:'',price:0};
-  btn.closest('.type-tabs').querySelectorAll('.ttab').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  renderSimForfait(i);
+  btn.closest('.type-tabs').querySelectorAll('.ttab').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderSimForfait(i);
 }
 
 function renderSimForfait(i){
-  const z=document.getElementById('sfz_'+i);if(!z)return;
-  const m=S.sims[i];
+  const z=document.getElementById('sfz_'+i);if(!z)return;const m=S.sims[i];
   if(m.type==='pack'){
-    const disc=i===0?10:5;
-    let html='<div class="fg">';
+    const disc=i===0?10:5;let html='<div class="fg">';
     PACK.forEach(f=>{
-      const fp=Math.max(0,f.base-disc);
-      const isFree=fp===0;
+      const fp=Math.max(0,f.base-disc);const isFree=fp===0;
       html+=`<div class="fc${m.forfait===f.id?' on':''}" id="fc_${i}_${f.id}"><div class="fc-name">${f.name}</div><div class="fc-data">${f.data}</div><div class="fc-calls">${f.calls}</div><div class="fc-eu">${f.europe}</div><div class="fc-prices"><div class="fc-old">${f.base.toFixed(2)}€</div>${isFree?`<div class="fc-free">🎁 ${tr('free1yrShort')}</div>`:`<div class="fc-new">${fp.toFixed(2)}€<span style="font-size:.52rem">/mois</span></div>`}<div class="fc-disc">−${disc}€ ${tr('discLabel')}</div></div></div>`;
     });
     z.innerHTML=html+'</div>';
@@ -822,8 +732,7 @@ function renderSimForfait(i){
       const fp=Math.max(0,f.base-(i===0?10:5));
       document.getElementById('fc_'+i+'_'+f.id)?.addEventListener('click',function(){
         S.sims[i].forfait=f.id;S.sims[i].fname=f.name;S.sims[i].price=fp;
-        this.closest('.fg').querySelectorAll('.fc').forEach(c=>c.classList.remove('on'));
-        this.classList.add('on');
+        this.closest('.fg').querySelectorAll('.fc').forEach(c=>c.classList.remove('on'));this.classList.add('on');
       });
     });
   } else {
@@ -835,37 +744,27 @@ function renderSimForfait(i){
     ALONE.forEach(f=>{
       document.getElementById('fca_'+i+'_'+f.id)?.addEventListener('click',function(){
         S.sims[i].forfait=f.id;S.sims[i].fname=f.name;S.sims[i].price=f.final;
-        this.closest('.fg').querySelectorAll('.fc').forEach(c=>c.classList.remove('on'));
-        this.classList.add('on');
+        this.closest('.fg').querySelectorAll('.fc').forEach(c=>c.classList.remove('on'));this.classList.add('on');
       });
     });
   }
 }
 
-// Promo & recap
 function hasExtra(){return(S.simCount>0&&S.sims.some(m=>m.forfait))||!!S.opts['tv']||!!S.opts['fixe'];}
 
 function calcLines(promoMonths){
-  const extra=hasExtra();
-  const disc=(promoMonths===6&&extra&&S.internet)?-10:0;
-  const lines=[];
-  if(S.internet){
-    const p=S.netPrice+disc;
-    const tag=disc<0?` <span style="color:var(--green);font-size:.7rem">(promo −${Math.abs(disc)}€)</span>`:'';
-    lines.push({l:S.netName+tag,p});
-  }
+  const extra=hasExtra();const disc=(promoMonths===6&&extra&&S.internet)?-10:0;const lines=[];
+  if(S.internet){const p=S.netPrice+disc;const tag=disc<0?` <span style="color:var(--green);font-size:.7rem">(promo −${Math.abs(disc)}€)</span>`:'';lines.push({l:S.netName+tag,p});}
   for(const k in S.opts)lines.push({l:S.opts[k].label,p:S.opts[k].price});
   for(let i=0;i<S.sims.length;i++){const m=S.sims[i];if(m.forfait)lines.push({l:`Mobile ${i+1} — ${m.fname}`,p:m.price});}
-  const total=lines.reduce((s,l)=>s+(l.p||0),0);
-  return{lines,total,disc};
+  const total=lines.reduce((s,l)=>s+(l.p||0),0);return{lines,total,disc};
 }
 
 function updateRecap(){
   const box=document.getElementById('promoRecap');if(!box)return;
   const{lines,total}=calcLines(S.promo);
   if(lines.length===0){box.innerHTML=`<div class="recap-empty">${tr('recapEmpty')}</div>`;return;}
-  const dp=S.profile==='pro'?total/1.21:total;
-  const bud=S.budgetActuel;
+  const dp=S.profile==='pro'?total/1.21:total;const bud=S.budgetActuel;
   const saving=bud>0&&total<bud?`<div style="margin-top:.5rem"><span class="recap-saving">🎉 Économie : ${(bud-total).toFixed(2)}€/mois !</span></div>`:'';
   let html=`<div class="recap-big"><div class="recap-lbl">${tr('s4recapLabel')}${S.profile==='pro'?' (HTVA)':''}</div><div class="recap-price">${dp.toFixed(2)}<span>€/mois</span></div>${saving}</div><div>`;
   lines.forEach(l=>{const pt=l.p===0?`<span style="color:var(--green);font-weight:700">${tr('free1yr')}</span>`:l.p.toFixed(2)+'€';html+=`<div class="recap-row"><span>${l.l}</span><span>${pt}</span></div>`;});
@@ -876,20 +775,15 @@ function updateRecap(){
 
 function buildPromoCards(){
   const extra=hasExtra();const noInternet=!S.internet;
-  const notice=document.getElementById('promoNotice');
-  const bar=document.getElementById('promoBar');
+  const notice=document.getElementById('promoNotice');const bar=document.getElementById('promoBar');
   if(noInternet){
-    notice.classList.remove('show');S.promo=0;
-    const tot=calcLines(0).total;
+    notice.classList.remove('show');S.promo=0;const tot=calcLines(0).total;
     bar.innerHTML=`<div class="pc on" style="grid-column:1/-1;cursor:default"><div class="pc-chk" style="display:flex">✓</div><div class="pc-dur">📱 ${tr('newMobTitle')}</div><span class="pc-pill green">✅ Sans engagement</span><div class="pc-total">Total : <strong>${tot.toFixed(2)}€/mois</strong></div><div class="pc-engage"><span class="pc-engage-txt">✅ ${tr('tb4')}</span></div></div>`;
     updateRecap();return;
   }
-  notice.innerHTML=tr('promoNoticeText');
-  notice.classList.toggle('show',!extra);
+  notice.innerHTML=tr('promoNoticeText');notice.classList.toggle('show',!extra);
   if(S.promo===0)S.promo=6;
-  const t6=calcLines(6).total,t12=calcLines(12).total;
-  const iNet=S.netPrice.toFixed(2);
-  const iNet6=extra?(S.netPrice-10).toFixed(2):iNet;
+  const t6=calcLines(6).total,t12=calcLines(12).total;const iNet=S.netPrice.toFixed(2);const iNet6=extra?(S.netPrice-10).toFixed(2):iNet;
   const promo6Desc=extra?`Internet <strong>${iNet}€</strong> → <strong style="color:var(--green)">${iNet6}€/mois</strong><br><span style="font-size:.7rem;color:var(--muted)">−10€/mois pendant 6 mois</span>`:`Internet à <strong style="color:var(--blue2)">${iNet}€/mois</strong>`;
   bar.innerHTML=`<div class="pc${S.promo===6?' on':''}" id="pc6"><div class="pc-chk">✓</div><div class="pc-dur">Promo 6 mois</div><span class="pc-pill green">🎁 Meilleur prix immédiat</span><div class="pc-price">${promo6Desc}</div><div class="pc-total">Total estimé : <strong>${t6.toFixed(2)}€/mois</strong></div><div class="pc-engage"><span class="pc-engage-txt">✅ ${tr('tb4')}</span></div><div class="pc-renew">Renouvelable à la fin de la période.</div></div><div class="pc${S.promo===12?' on':''}" id="pc12"><div class="pc-chk">✓</div><div class="pc-dur">Promo 12 mois</div><span class="pc-pill gold">📅 Stabilité sur 1 an</span><div class="pc-price">Internet à <strong style="color:var(--blue2)">${iNet}€/mois</strong><br><span style="font-size:.7rem;color:var(--muted)">Tarif garanti 12 mois</span></div><div class="pc-total">Total estimé : <strong>${t12.toFixed(2)}€/mois</strong></div><div class="pc-engage"><span class="pc-engage-txt">✅ ${tr('tb4')}</span></div><div class="pc-renew">Renouvelable à la fin de la période.</div></div>`;
   document.getElementById('pc6').addEventListener('click',()=>{S.promo=6;buildPromoCards();});
@@ -897,33 +791,25 @@ function buildPromoCards(){
   updateRecap();
 }
 
-// Step navigation
 S.currentStep=1;
 function showStep(n){
-  S.currentStep=n;
-  buildStepper();
-  for(let i=1;i<=5;i++){
-    const el=document.getElementById('step'+i);
-    if(!el)continue;
-    if(i<=n)el.classList.add('visible');else el.classList.remove('visible');
-  }
-  const tgt=document.getElementById('step'+n);
-  if(tgt)setTimeout(()=>tgt.scrollIntoView({behavior:'smooth',block:'start'}),80);
+  S.currentStep=n;buildStepper();
+  for(let i=1;i<=5;i++){const el=document.getElementById('step'+i);if(!el)continue;if(i<=n)el.classList.add('visible');else el.classList.remove('visible');}
+  const tgt=document.getElementById('step'+n);if(tgt)setTimeout(()=>tgt.scrollIntoView({behavior:'smooth',block:'start'}),80);
   if(n===4){buildPromoCards();}
+  if(n===5){set('okTitle',tr('okTitle'));set('okSub',tr('okSub'));attachSendBtn();}
 }
 
-// Init events
+
+
 function init(){
   buildLangBar();renderAll();
 
-  // Hero → profile
   document.getElementById('heroBtn').addEventListener('click',()=>{
-    const h=document.getElementById('heroScreen');
-    h.style.transition='opacity .3s';h.style.opacity='0';
+    const h=document.getElementById('heroScreen');h.style.transition='opacity .3s';h.style.opacity='0';
     setTimeout(()=>{h.style.display='none';document.getElementById('profileScreen').classList.add('show');window.scrollTo({top:0,behavior:'smooth'});},320);
   });
 
-  // Profile choices
   document.getElementById('btnPart').addEventListener('click',()=>chooseProfile('part'));
   document.getElementById('btnPro').addEventListener('click',()=>chooseProfile('pro'));
 
@@ -939,28 +825,23 @@ function init(){
 
   document.getElementById('pbChange').addEventListener('click',()=>{
     document.getElementById('appScreen').style.display='none';
-    document.getElementById('profileScreen').classList.add('show');
-    window.scrollTo({top:0,behavior:'smooth'});
+    document.getElementById('profileScreen').classList.add('show');window.scrollTo({top:0,behavior:'smooth'});
   });
 
-  // Dropdowns
   document.getElementById('sOp').addEventListener('focus',()=>openDD('dOp','operateur'));
   document.getElementById('sOp').addEventListener('blur',()=>setTimeout(()=>document.getElementById('dOp').classList.remove('open'),180));
   document.getElementById('sOp').addEventListener('input',()=>filterDD('sOp','dOp','operateur'));
   document.getElementById('clrOp').addEventListener('click',()=>clearOp('operateur'));
-
   document.getElementById('sMob').addEventListener('focus',()=>openDD('dMob','operateurMobile'));
   document.getElementById('sMob').addEventListener('blur',()=>setTimeout(()=>document.getElementById('dMob').classList.remove('open'),180));
   document.getElementById('sMob').addEventListener('input',()=>filterDD('sMob','dMob','operateurMobile'));
   document.getElementById('clrMob').addEventListener('click',()=>clearOp('operateurMobile'));
-
   document.getElementById('autreOp').addEventListener('input',e=>S.operateurAutre=e.target.value);
   document.getElementById('autreMob').addEventListener('input',e=>S.operateurMobileAutre=e.target.value);
   document.getElementById('budgetActuel').addEventListener('input',e=>{S.budgetActuel=parseFloat(e.target.value)||0;});
   document.getElementById('budgetWrap').addEventListener('focusin',()=>document.getElementById('budgetWrap').style.borderColor='var(--blue)');
   document.getElementById('budgetWrap').addEventListener('focusout',()=>document.getElementById('budgetWrap').style.borderColor='var(--border2)');
 
-  // Step buttons
   document.getElementById('btn1next').addEventListener('click',()=>showStep(2));
   document.getElementById('btn2back').addEventListener('click',()=>showStep(1));
   document.getElementById('btn2next').addEventListener('click',()=>showStep(3));
@@ -968,20 +849,91 @@ function init(){
   document.getElementById('btn3next').addEventListener('click',()=>showStep(4));
   document.getElementById('btn4back').addEventListener('click',()=>showStep(3));
   document.getElementById('btn4next').addEventListener('click',()=>showStep(5));
-
-  // Mobile counters
   document.getElementById('curMobMinus').addEventListener('click',()=>changeCurMob(-1));
   document.getElementById('curMobPlus').addEventListener('click',()=>changeCurMob(1));
   document.getElementById('simMinus').addEventListener('click',()=>changeMob(-1));
   document.getElementById('simPlus').addEventListener('click',()=>changeMob(1));
 
-  // Send
-  document.getElementById('sendBtn').addEventListener('click',()=>{
-    const get=id=>document.getElementById(id)?.value?.trim()||'';
-    const prenom=get('f_prenom'),nom=get('f_nom'),adresse=get('f_adresse'),cp=get('f_cp'),ville=get('f_ville'),tel=get('f_tel'),email=get('f_email');
-    if(!prenom||!nom||!adresse||!cp||!ville||!tel||!email){alert('Veuillez remplir tous les champs obligatoires *');return;}
-    const btn=document.getElementById('sendBtn');btn.disabled=true;btn.textContent='⏳ Envoi en cours…';
-    setTimeout(()=>{document.getElementById('okBox').classList.add('show');btn.style.display='none';},1200);
+
+}
+
+// Envoi via clic sur le bouton — sans dépendre de l'événement submit
+function attachSendBtn(){
+  const btn=document.getElementById('sendBtn');
+  if(!btn)return;
+  btn.addEventListener('click',function(e){
+    e.preventDefault();
+
+    // Validation manuelle des champs obligatoires
+    const fields=['f_prenom','f_nom','f_adresse','f_cp','f_ville','f_tel','f_email'];
+    const vals={};
+    for(const id of fields){
+      const el=document.getElementById(id);
+      vals[id]=el?el.value.trim():'';
+      if(!vals[id]){
+        if(el){el.focus();el.style.borderColor='#ff6060';}
+        alert('Veuillez remplir tous les champs obligatoires (*).');
+        return;
+      }
+    }
+
+    btn.disabled=true;
+    btn.innerHTML='⏳ Envoi en cours…';
+
+    const{lines,total}=calcLines(S.promo);
+    const recap=lines.length>0
+      ? lines.map(l=>l.l.replace(/<[^>]+>/g,'')+' : '+(l.p===0?'Gratuit 1 an':l.p.toFixed(2)+'€/mois')).join(' | ')+' | TOTAL: '+total.toFixed(2)+'€/mois'
+      : 'Aucune offre sélectionnée';
+    const services=Object.keys(S.hasServices).filter(k=>S.hasServices[k]).join(', ')||'Aucun';
+    const options=Object.values(S.opts).map(o=>o.label).join(', ')||'Aucune';
+    const mobActuels=S.curMobs.slice(0,S.curMobCount).map((m,i)=>'Ligne '+(i+1)+': '+(m.operateur||'N/A')+' - '+m.type+' - '+(m.data||'N/A')+(m.price?' - '+m.price+'€/mois':'')).join(' | ')||'Aucun';
+    const sims=S.sims.slice(0,S.simCount).map((m,i)=>'SIM '+(i+1)+': '+(m.fname||'N/A')+' ('+m.type+')'+(m.price?' - '+m.price+'€/mois':'')).join(' | ')||'Aucune';
+    const tva=(document.getElementById('f_tva')||{}).value||'';
+    const msg=(document.getElementById('f_msg')||{}).value||'';
+
+    const payload={
+      _subject:'[SBC Consulting] Nouvelle demande — '+vals.f_prenom+' '+vals.f_nom,
+      'Prénom':vals.f_prenom,'Nom':vals.f_nom,'Adresse':vals.f_adresse,
+      'Code postal':vals.f_cp,'Ville':vals.f_ville,'Téléphone':vals.f_tel,
+      'email':vals.f_email,'Numéro TVA':tva||'N/A','Message':msg,
+      'Profil':S.profile==='pro'?'Professionnel':'Particulier','Langue':lang.toUpperCase(),
+      'Opérateur actuel (fixe)':S.operateur+(S.operateurAutre?' — '+S.operateurAutre:'')||'Non renseigné',
+      'Opérateur actuel (mobile)':S.operateurMobile+(S.operateurMobileAutre?' — '+S.operateurMobileAutre:'')||'Non renseigné',
+      'Services actuels':services,'Engagement':S.engagement||'Non renseigné',
+      'Budget actuel':S.budgetActuel?S.budgetActuel+'€/mois':'Non renseigné',
+      'Internet choisi':S.netName||'Aucun','Options':options,
+      'Mobiles actuels':mobActuels,'Nouvelles SIM':sims,
+      'Promotion':S.promo?S.promo+' mois':'Sans internet','Récapitulatif':recap
+    };
+
+    fetch('https://formspree.io/f/xvzywbbb',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify(payload)
+    })
+    .then(function(r){
+      return r.json().then(function(d){return{ok:r.ok,d:d};});
+    })
+    .then(function(res){
+      if(res.ok){
+        const form=document.querySelector('#step5 form');
+        if(form)form.style.display='none';
+        set('okTitle',tr('okTitle'));
+        set('okSub',tr('okSub'));
+        const ob=document.getElementById('okBox');
+        ob.classList.add('show');
+        setTimeout(function(){ob.scrollIntoView({behavior:'smooth',block:'center'});},50);
+      } else {
+        btn.disabled=false;
+        btn.innerHTML=tr('sendBtn');
+        alert('Erreur : '+(res.d&&res.d.error?res.d.error:'Veuillez réessayer.'));
+      }
+    })
+    .catch(function(err){
+      btn.disabled=false;
+      btn.innerHTML=tr('sendBtn');
+      alert('Erreur réseau. Vérifiez votre connexion internet et réessayez.');
+    });
   });
 }
 
